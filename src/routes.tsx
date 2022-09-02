@@ -1,6 +1,7 @@
-import SignIn from "./pages/shared/auth/sign-in";
-import SignUp from "./pages/shared/auth/sign-up";
-import ForgotPassword from "./pages/shared/auth/forgot-password";
+import SignIn from "./pages/shared/auth/sign-in"
+import SignUp from "./pages/shared/auth/sign-up"
+import ForgotPassword from "./pages/shared/auth/forgot-password"
+import Facebook from "./pages/shared/facebook/facebook"
 export const routes = [
   {
     path: "super-admin",
@@ -10,6 +11,10 @@ export const routes = [
   },
   {
     path: "client",
+  },
+  {
+    path: "facebook",
+    element: <Facebook />,
   },
   {
     path: "manager",
@@ -34,4 +39,4 @@ export const routes = [
       },
     ],
   },
-];
+]
