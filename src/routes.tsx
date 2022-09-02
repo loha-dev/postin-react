@@ -1,22 +1,8 @@
 import SignIn from "./pages/shared/auth/sign-in";
 import SignUp from "./pages/shared/auth/sign-up";
 import ForgotPassword from "./pages/shared/auth/forgot-password";
+import MainLayout from "./pages/shared/layout/z-layout";
 export const routes = [
-  {
-    path: "super-admin",
-  },
-  {
-    path: "admin",
-  },
-  {
-    path: "client",
-  },
-  {
-    path: "manager",
-  },
-  {
-    path: "/",
-  },
   {
     path: "auth",
     children: [
@@ -31,6 +17,24 @@ export const routes = [
       {
         path: "forgot-password",
         element: <ForgotPassword />,
+      },
+    ],
+  },
+  {
+    path: "/",
+    element: <MainLayout />,
+    children: [
+      {
+        path: "super-admin",
+      },
+      {
+        path: "admin",
+      },
+      {
+        path: "client",
+      },
+      {
+        path: "manager",
       },
     ],
   },
