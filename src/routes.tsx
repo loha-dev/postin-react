@@ -20,22 +20,25 @@ export const routes = [
       },
     ],
   },
-
-  {
-    path: "super-admin",
-  },
-  {
-    path: "admin",
-  },
-  {
-    path: "client",
-  },
-  {
-    path: "manager",
-  },
   {
     path: "/",
     element: <MainLayout />,
-    children: [],
+    children: [
+      {
+        path: "dashboard",
+      },
+      {
+        path: "super-admin",
+      },
+      {
+        path: "admin",
+      },
+      {
+        path: "client",
+      },
+      {
+        path: "manager",
+      },
+    ],
   },
 ];

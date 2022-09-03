@@ -15,11 +15,18 @@ const MainLayout = () => {
   return (
     <>
       {/* Topbar 🤫 */}
-      <Top />
+
+      <Top isSomehowMobile={isSomehowMobile} />
       {/* other parts */}
-      <div>
+      <div className={isSomehowMobile ? "" : "grid grid-cols-[1fr_4fr]"}>
         <aside>{isSomehowMobile ? "" : <Side />}</aside>
-        <div>
+        <div
+          className={`${
+            search.inlayout === undefined || search.inlayout === true
+              ? "grid grid-cols-[2fr_7fr] gap-1"
+              : ""
+          }`}
+        >
           {/* Sidenav 😴 */}
           {search.inlayout === undefined || search.inlayout === true ? (
             <Account />
@@ -28,7 +35,9 @@ const MainLayout = () => {
           )}
 
           {/* account 😴 */}
-          <Outlet />
+          <div className="m-4 bg-white rounded-xl">
+            <Outlet />
+          </div>
         </div>
       </div>
     </>

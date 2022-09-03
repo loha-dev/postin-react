@@ -26,9 +26,21 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Router location={location} routes={routes}>
-        <MantineProvider withNormalizeCSS withGlobalStyles>
+        <MantineProvider
+          withNormalizeCSS
+          withGlobalStyles
+          theme={{
+            fontFamily: "Nunito, Verdana, sans-serif",
+            fontFamilyMonospace: "Monaco, Courier, monospace",
+            headings: { fontFamily: "Greycliff CF, sans-serif" },
+          }}
+        >
           <NotificationsProvider>
-            <main className={theme === "dark" ? "dark" : ""}>
+            <main
+              className={`${
+                theme === "dark" ? "dark" : ""
+              } bg-fotsy min-h-screen`}
+            >
               <Outlet />
             </main>
           </NotificationsProvider>
