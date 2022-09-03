@@ -1,27 +1,8 @@
-import SignIn from "./pages/shared/auth/sign-in"
-import SignUp from "./pages/shared/auth/sign-up"
-import ForgotPassword from "./pages/shared/auth/forgot-password"
-import Facebook from "./pages/shared/facebook/facebook"
+import SignIn from "./pages/shared/auth/sign-in";
+import SignUp from "./pages/shared/auth/sign-up";
+import ForgotPassword from "./pages/shared/auth/forgot-password";
+import MainLayout from "./pages/shared/layout/z-layout";
 export const routes = [
-  {
-    path: "super-admin",
-  },
-  {
-    path: "admin",
-  },
-  {
-    path: "client",
-  },
-  {
-    path: "facebook",
-    element: <Facebook />,
-  },
-  {
-    path: "manager",
-  },
-  {
-    path: "/",
-  },
   {
     path: "auth",
     children: [
@@ -39,4 +20,22 @@ export const routes = [
       },
     ],
   },
-]
+  {
+    path: "/",
+    element: <MainLayout />,
+    children: [
+      {
+        path: "super-admin",
+      },
+      {
+        path: "admin",
+      },
+      {
+        path: "client",
+      },
+      {
+        path: "manager",
+      },
+    ],
+  },
+];
