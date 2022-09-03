@@ -2,6 +2,7 @@ import SignIn from "./pages/shared/auth/sign-in";
 import SignUp from "./pages/shared/auth/sign-up";
 import ForgotPassword from "./pages/shared/auth/forgot-password";
 import MainLayout from "./pages/shared/layout/z-layout";
+import Facebook from "./pages/shared/facebook/facebook";
 export const routes = [
   {
     path: "auth",
