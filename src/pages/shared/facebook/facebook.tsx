@@ -32,7 +32,7 @@ export default function Facebook() {
     <div>
       <button onClick={login}>FB Login</button>
       <br />
-      <button onClick={login}>FB logout</button>
+      <button onClick={logout}>FB logout</button>
     </div>
   )
 }
