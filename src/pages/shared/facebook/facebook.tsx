@@ -7,7 +7,9 @@ export default function Facebook() {
       console.log(response)
     })
   }, [])
-  const login = fb.login()
+  const login = () => {
+    fb.login()
+  }
   return (
     <div>
       <button onClick={login}>FB Login</button>
