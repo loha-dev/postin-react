@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Post In</title>
+    <script type="module" crossorigin src="/assets/index.80d3f922.js"></script>
+    <link rel="stylesheet" href="/assets/index.7ab4b2e2.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    
+
+    <!-- graph api sdk -->
+    <script>
+      window.fbAsyncInit = function () {
+        FB.init({
+          appId: "608228130743970",
+          cookie: true,
+          xfbml: true,
+          version: "v14.0",
+        })
+
+        FB.AppEvents.logPageView()
+      }
+      ;(function (d, s, id) {
+        var js,
+          fjs = d.getElementsByTagName(s)[0]
+        if (d.getElementById(id)) {
+          return
+        }
+        js = d.createElement(s)
+        js.id = id
+        js.src = "https://connect.facebook.net/en_US/sdk.js"
+        fjs.parentNode.insertBefore(js, fjs)
+      })(document, "script", "facebook-jssdk")
+    </script>
+  </body>
+</html>
