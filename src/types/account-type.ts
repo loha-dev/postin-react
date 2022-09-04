@@ -1,15 +1,28 @@
 import { MakeGenerics } from "@tanstack/react-location";
 export type accountsType =
   | {
-      owner?: "all" | string[] | string | null;
+      owner?:
+        | "all"
+        | {
+            name: string;
+            id: number;
+            phone: string;
+          }[]
+        | {
+            name: string;
+            id: number;
+            phone: string;
+          }
+        | null;
       socials?: "all" | string[] | null;
       out?: "all" | string[] | null;
     }
   | null
   | "all";
+
 export type accountsGenericsSearch = MakeGenerics<{
   Search: {
-    owner?: string;
+    name?: string;
     phone?: string;
   };
 }>;
@@ -31,4 +44,14 @@ export type clientsType = {
   name: string;
   phone: string;
   id: number;
+  avatar: string;
+};
+export type clientsPagesType = {
+  id: number;
+  title: string;
+  social: {
+    id: number;
+    title: string;
+    img: string;
+  };
 };

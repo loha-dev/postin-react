@@ -8,8 +8,9 @@ module.exports = {
         'fotsy': '#ebf3f7',
       },
       fontFamily: {
-        'body': "Nunito"
-      }
+        'body': "Nunito",
+
+      },
     },
   },
   plugins: [],

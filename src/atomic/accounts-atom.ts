@@ -1,3 +1,3 @@
 import { atom } from "jotai";
-import type { accountsType } from "../types/account-type";
-export const accountsAtom = atom<accountsType>("all");
+import type { clientsType } from "../types/account-type";
+export const accountsAtom = atom<clientsType | null>(null);
