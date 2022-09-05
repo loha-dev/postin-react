@@ -1,7 +1,7 @@
 import { createMachine } from "xstate"
 
 const getFacebookPageAccessMachine = createMachine({
-  id: "promise",
+  id: "facebook_page_access",
   initial: "idle",
   states: {
     idle: {
