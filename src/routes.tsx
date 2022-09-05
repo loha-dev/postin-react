@@ -27,6 +27,7 @@ export const routes = [
     children: [
       {
         path: "dashboard",
+        element: <div>'🫠'</div>,
       },
       {
         path: "super-admin",

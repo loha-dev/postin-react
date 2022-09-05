@@ -24,6 +24,14 @@ export type accountsGenericsSearch = MakeGenerics<{
   Search: {
     name?: string;
     phone?: string;
+    id?: number;
+  };
+}>;
+export type activeAccountSearch = MakeGenerics<{
+  Search: {
+    activename?: string;
+    activeid?: number;
+    activephone?: string;
   };
 }>;
 export type accountsUrlSearch = MakeGenerics<{
@@ -54,4 +62,15 @@ export type clientsPagesType = {
     title: string;
     img: string;
   };
+};
+
+export type activePagesType = {
+  id: number;
+  title: string;
+  social: {
+    title: string;
+    img: string;
+    id: number;
+  };
+  owner: clientsType | null;
 };
