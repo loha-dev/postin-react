@@ -16,20 +16,20 @@ export default function Facebook() {
       getLoginStatus()
     }
   }, [isFacebookSDKReady])
-
   const getLoginStatus = () =>
     FB.getLoginStatus(function (response: any) {
       console.log(response)
     })
-  useEffect(() => {}, [])
 
   // user login
-  const login = () => {
+  const facebookGetUserInfo = () => {
     FB.login(function (response: any) {
       console.log(response)
       if (response.authResponse) {
         console.log("Welcome!  Fetching your information.... ")
         FB.api("/me", function (me: any) {
+          console.log("me: ", me)
+
           console.log("Good to see you, " + me.name + ".")
         })
       } else {
@@ -45,7 +45,7 @@ export default function Facebook() {
   }
   return (
     <div>
-      <button onClick={login}>FB Login</button>
+      <button onClick={facebookGetUserInfo}>FB Login</button>
       <br />
       <button onClick={logout}>FB logout</button>
     </div>
