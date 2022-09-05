@@ -6,29 +6,6 @@ import Facebook from "./pages/shared/facebook/facebook"
 import Planning from "./pages/shared/planning/planning"
 export const routes = [
   {
-    path: "super-admin",
-  },
-  {
-    path: "admin",
-  },
-  {
-    path: "client",
-  },
-  {
-    path: "facebook",
-    element: <Facebook />,
-  },
-  {
-    path: "manager",
-  },
-  {
-    path: "planning",
-    element: <Planning />
-  },
-  {
-    path: "/",
-  },
-  {
     path: "auth",
     children: [
       {
@@ -51,6 +28,14 @@ export const routes = [
     children: [
       {
         path: "dashboard",
+      },
+      {
+        path: "facebook",
+        element: <Facebook />,
+      },
+      {
+        path: "planning",
+        element: <Planning />
       },
       {
         path: "super-admin",
