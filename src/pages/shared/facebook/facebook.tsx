@@ -1,7 +1,8 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 const fb = window.FB as any
 
 export default function Facebook() {
+  const [loggedIn, setLogged] = useState<boolean>(false)
   const getLoginStatus = () =>
     fb.getLoginStatus(function (response: any) {
       console.log(response)
