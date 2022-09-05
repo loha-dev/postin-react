@@ -21,7 +21,7 @@ export const routes = [
     path: "manager",
   },
   {
-    path: "Planning",
+    path: "planning",
     element: <Planning />
   },
   {
