@@ -2,7 +2,7 @@ import { supabase } from "../../../utils/supabase";
 import { Link, useNavigate } from "@tanstack/react-location";
 import type { authType } from "../../../types/short";
 import { CheckIcon } from "@mantine/core";
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+import { HiEye, HiEyeOff } from "react-icons/hi";
 import { useForm } from "@mantine/form";
 import { useState } from "react";
 import { hideNotification, showNotification } from "@mantine/notifications";
@@ -95,12 +95,12 @@ const SignUp = () => {
                   {...signUpForm.getInputProps("password")}
                 />
                 {isShown ? (
-                  <EyeSlashIcon
+                  <HiEyeOff
                     className="absolute text-gray-400 right-2 bottom-2 w-6"
                     onClick={() => setIsShown((prev) => !prev)}
                   />
                 ) : (
-                  <EyeIcon
+                  <HiEye
                     className="absolute text-gray-400 right-2 bottom-2 w-6"
                     onClick={() => setIsShown((prev) => !prev)}
                   />

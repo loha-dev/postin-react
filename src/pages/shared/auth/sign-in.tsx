@@ -1,7 +1,7 @@
 import { supabase } from "../../../utils/supabase";
 import { Link, useNavigate } from "@tanstack/react-location";
 import type { authType } from "../../../types/short";
-import { CheckIcon, EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+import { HiCheck, HiEye, HiEyeOff } from "react-icons/hi";
 import { useForm } from "@mantine/form";
 import { useState } from "react";
 import { hideNotification, showNotification } from "@mantine/notifications";
@@ -36,7 +36,7 @@ const SignIn = () => {
         title: `Connexion success`,
         message: "Aller au page d' acceuil ",
         color: "green",
-        icon: <CheckIcon className="w-5 h-5" />,
+        icon: <HiCheck className="w-5 h-5" />,
       });
       navigate({
         to: "/",
@@ -92,12 +92,12 @@ const SignIn = () => {
                   {...signInForm.getInputProps("password")}
                 />
                 {isShown ? (
-                  <EyeSlashIcon
+                  <HiEyeOff
                     className="absolute right-2 bottom-2 w-6"
                     onClick={() => setIsShown((prev) => !prev)}
                   />
                 ) : (
-                  <EyeIcon
+                  <HiEye
                     className="absolute right-2 bottom-2 w-6"
                     onClick={() => setIsShown((prev) => !prev)}
                   />
