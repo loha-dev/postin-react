@@ -5,7 +5,7 @@ import { Outlet } from "@tanstack/react-location";
 import { useSearch } from "@tanstack/react-location";
 import { accountsUrlSearch } from "../../../types/account-type";
 import { useMediaQuery } from "@mantine/hooks";
-
+import SocialMedia from "./social-media";
 const MainLayout = () => {
   const search = useSearch<accountsUrlSearch>();
   const isSomehowMobile = useMediaQuery("(max-width: 900px)");
@@ -35,8 +35,13 @@ const MainLayout = () => {
           )}
 
           {/* account 😴 */}
-          <div className="m-4 bg-white rounded-xl">
-            <Outlet />
+          <div className="m-4 ">
+            <div className=" bg-white rounded-xl mb-3">
+              <SocialMedia />
+            </div>
+            <div className=" bg-white rounded-xl text-center w-full">
+              <Outlet />
+            </div>
           </div>
         </div>
       </div>

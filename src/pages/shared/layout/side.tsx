@@ -1,5 +1,5 @@
-import Horizontal from "./horizontal";
-import Ads from "./ads";
+import Horizontal from "./components/horizontal";
+import Ads from "./components/ads";
 const Side = () => {
   return (
     <div className="m-4 flex flex-col gap-2 overflow-hidden">
