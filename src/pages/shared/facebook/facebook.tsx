@@ -1,17 +1,32 @@
 import React, { useEffect, useState } from "react"
-const fb = window.FB as any
+// @ts-ignore
+import useFacebook from "use-facebook"
+
+const options = {
+  appId: process.env.FACEBOOK_APP_ID,
+  version: "v14.0",
+  lang: "fr_FR",
+}
 
 export default function Facebook() {
   const [loggedIn, setLogged] = useState<boolean>(false)
+  const { isFacebookSDKReady } = useFacebook(options)
+  useEffect(() => {
+    console.log("ready? ", isFacebookSDKReady)
+  }, [isFacebookSDKReady])
+
   const getLoginStatus = () =>
-    fb.getLoginStatus(function (response: any) {
+    FB.getLoginStatus(function (response: any) {
       console.log(response)
     })
   useEffect(() => {
     getLoginStatus()
   }, [])
+
+  // user login
   const login = () => {
-    fb.login(function (response: any) {
+    FB.login()
+    FB.login(function (response: any) {
       console.log(response)
       if (response.authResponse) {
         console.log("Welcome!  Fetching your information.... ")
@@ -25,7 +40,7 @@ export default function Facebook() {
   }
 
   const logout = () => {
-    fb.logout((response: any) => {
+    FB.logout((response: any) => {
       console.log("logout ", response)
     })
   }
