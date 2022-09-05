@@ -9,23 +9,22 @@ const options = {
 }
 
 export default function Facebook() {
-  const [loggedIn, setLogged] = useState<boolean>(false)
   const { isFacebookSDKReady } = useFacebook(options)
   useEffect(() => {
     console.log("ready? ", isFacebookSDKReady)
+    if (isFacebookSDKReady) {
+      getLoginStatus()
+    }
   }, [isFacebookSDKReady])
 
   const getLoginStatus = () =>
     FB.getLoginStatus(function (response: any) {
       console.log(response)
     })
-  useEffect(() => {
-    getLoginStatus()
-  }, [])
+  useEffect(() => {}, [])
 
   // user login
   const login = () => {
-    FB.login()
     FB.login(function (response: any) {
       console.log(response)
       if (response.authResponse) {
