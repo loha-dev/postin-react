@@ -8,38 +8,35 @@ const getFacebookPageAccessMachine = createMachine(
       idle: {
         on: {
           USER_LOGIN: {
-            target: "got_user_access_token",
+            target: "logged_in",
           },
         },
         states: {
           idle: {},
-          clicked: {},
+          popup: {},
           timeout: {},
         },
       },
-      got_user_access_token: {
+      logged_in: {
         on: {
-          GET_LONG_LIVED_USER_ACCESS_TOKEN: {
-            target: "got_long_lived_user",
+          GET_USER_TOKEN: {
+            target: "user_token",
           },
         },
       },
-      got_long_lived_user: {
-        on: {
-          GET_LONG_LIVED_PAGE_ACCESS_TOKEN: {
-            target: "success",
-          },
-        },
+      user_token: {
         states: {
           idle: {
             on: {
-              SHOW_PAGE_LIST: { target: "showing_page_list" },
+              SHOW_PAGES: { target: "showing_pages" },
             },
           },
-          showing_page_list: {},
+          showing_pages: {},
         },
       },
-      selected_pages_to_import: {},
+      pages_selected: {},
+      pages_tokens: {},
+      tokens_saved: {},
       success: {},
     },
   },
@@ -60,9 +57,20 @@ const getFacebookPageAccessMachine = createMachine(
           }
         })
       },
-      getLongLivedUserAccessToken: () => {},
+      getUserToken: () => {
+        fetch(
+          `https://graph.facebook.com/{graph-api-version}/oauth/access_token?grant_type=fb_exchange_token&client_id={app-id}&client_secret={app-secret}&fb_exchange_token={your-access-token}`
+        )
+      },
       showPageList: () => {},
-      importPages: () => {},
+      getPagesTokens: () => {
+        const pages: string[] = []
+        for (const page in pages) {
+          fetch(
+            `https://graph.facebook.com/{graph-api-version}/{user-id}/accounts?access_token={long-lived-user-access-token}`
+          )
+        }
+      },
       logout: () => {
         FB.logout((response: any) => {
           console.log("logout ", response)
