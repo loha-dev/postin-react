@@ -1,28 +1,73 @@
-import { createMachine } from "xstate"
+import { actions, createMachine } from "xstate"
 
-const getFacebookPageAccessMachine = createMachine({
-  id: "facebook_page_access",
-  initial: "idle",
-  states: {
-    idle: {
-      on: {
-        USER_LOGIN: { target: "got_user_access_token" },
-      },
-    },
-    got_user_access_token: {
-      on: {
-        USER_SHOW_PAGE_LIST: {},
-        GET_LONG_LIVED_USER_ACCESS_TOKEN: { target: "got_long_lived_user" },
-      },
-    },
-    got_long_lived_user: {
-      // needs app secret
-      on: {
-        GET_LONG_LIVED_PAGE_ACCESS_TOKEN: {
-          target: "got_long_lived_page_access_token",
+const getFacebookPageAccessMachine = createMachine(
+  {
+    id: "facebook_import_pages",
+    initial: "idle",
+    states: {
+      idle: {
+        on: {
+          USER_LOGIN: {
+            target: "got_user_access_token",
+          },
+        },
+        states: {
+          idle: {},
+          clicked: {},
+          timeout: {},
         },
       },
+      got_user_access_token: {
+        on: {
+          GET_LONG_LIVED_USER_ACCESS_TOKEN: {
+            target: "got_long_lived_user",
+          },
+        },
+      },
+      got_long_lived_user: {
+        on: {
+          GET_LONG_LIVED_PAGE_ACCESS_TOKEN: {
+            target: "success",
+          },
+        },
+        states: {
+          idle: {
+            on: {
+              SHOW_PAGE_LIST: { target: "showing_page_list" },
+            },
+          },
+          showing_page_list: {},
+        },
+      },
+      selected_pages_to_import: {},
+      success: {},
     },
-    got_long_lived_page_access_token: {},
   },
-})
+  {
+    actions: {
+      getUserInfo: () => {
+        FB.login(function (response: any) {
+          console.log(response)
+          if (response.authResponse) {
+            console.log("Welcome!  Fetching your information.... ")
+            FB.api("/me", function (me: any) {
+              console.log("me: ", me)
+
+              console.log("Good to see you, " + me.name + ".")
+            })
+          } else {
+            console.log("User cancelled login or did not fully authorize.")
+          }
+        })
+      },
+      getLongLivedUserAccessToken: () => {},
+      showPageList: () => {},
+      importPages: () => {},
+      logout: () => {
+        FB.logout((response: any) => {
+          console.log("logout ", response)
+        })
+      },
+    },
+  }
+)

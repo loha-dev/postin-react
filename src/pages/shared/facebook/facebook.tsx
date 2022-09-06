@@ -1,37 +1,36 @@
 import React, { useEffect, useState } from "react"
-const fb = window.FB as any
+// @ts-ignore
+import useFacebook from "use-facebook"
+
+const options = {
+  appId: process.env.FACEBOOK_APP_ID,
+  version: "v14.0",
+  lang: "fr_FR",
+}
 
 export default function Facebook() {
-  const [loggedIn, setLogged] = useState<boolean>(false)
-  const getLoginStatus = () =>
-    fb.getLoginStatus(function (response: any) {
-      console.log(response)
-    })
+  const { isFacebookSDKReady } = useFacebook(options)
   useEffect(() => {
-    getLoginStatus()
-  }, [])
-  const login = () => {
-    fb.login(function (response: any) {
+    console.log("ready? ", isFacebookSDKReady)
+    if (isFacebookSDKReady) {
+      getLoginStatus()
+    }
+  }, [isFacebookSDKReady])
+  const getLoginStatus = () =>
+    FB.getLoginStatus(function (response: any) {
       console.log(response)
-      if (response.authResponse) {
-        console.log("Welcome!  Fetching your information.... ")
-        FB.api("/me", function (me: any) {
-          console.log("Good to see you, " + me.name + ".")
-        })
-      } else {
-        console.log("User cancelled login or did not fully authorize.")
-      }
     })
-  }
+
+  const facebookGetUserInfo = () => {}
 
   const logout = () => {
-    fb.logout((response: any) => {
+    FB.logout((response: any) => {
       console.log("logout ", response)
     })
   }
   return (
     <div>
-      <button onClick={login}>FB Login</button>
+      <button onClick={facebookGetUserInfo}>FB Login</button>
       <br />
       <button onClick={logout}>FB logout</button>
     </div>
