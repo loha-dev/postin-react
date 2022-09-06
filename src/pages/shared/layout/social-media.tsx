@@ -2,15 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "../../../utils/supabase";
 import { AiOutlineGlobal } from "react-icons/ai";
 import LinePoints from "./components/line-points";
-import {BsPlusLg} from 'react-icons/bs'
 import { GiCrossedBones } from "react-icons/gi";
 import { useListState } from "@mantine/hooks";
+
 const SocialMedia = () => {
   const { data: socials } = useQuery(["social-media"], async () => {
     const { data } = await supabase.from("social-media");
     return data as { id: number; title: string; img: string }[];
   });
   const [removed, handlers] = useListState();
+
   return (
     <div className="flex p-3 gap-5">
       <div className="flex gap-2 items-center">
