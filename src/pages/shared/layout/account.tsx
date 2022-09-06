@@ -87,7 +87,7 @@ const Account = () => {
     }
   }, [searchActive, active]);
   return (
-    <div className="my-4 bg-white rounded-xl py-4 px-3 min-w-[18rem] max-w-[20rem]">
+    <div className="my-4 bg-white rounded-xl py-4 px-3 min-w-[18rem]">
       <p className="text-gray-500">Choisissez une compte</p>
       <Tabs
         value={activeTab}

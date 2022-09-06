@@ -21,7 +21,7 @@ const Horizontal = () => {
                 <span className="inline-flex justify-center items-center ml-4">
                   <AiOutlineHome className="w-5 h-5" />
                 </span>
-                <span className="ml-2 text-sm tracking-wide truncate"> 
+                <span className="ml-2 text-sm tracking-wide truncate">
                   Dashboard
                 </span>
               </a>

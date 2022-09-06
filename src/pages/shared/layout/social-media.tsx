@@ -114,13 +114,13 @@ const SocialMedia = () => {
               <span>{social.title}</span>
               <button
                 className={`absolute top-0 right-0 rounded-xl p-1 ${
-                  social.isOut ? "bg-green-500" : "bg-red-200"
+                  social.isOut ? "bg-red-200" : "bg-green-500"
                 }`}
               >
                 {social.isOut ? (
-                  <IoAdd className="w-3 h-3" />
-                ) : (
                   <IoClose className="w-3 h-3" />
+                ) : (
+                  <IoAdd className="w-3 h-3" />
                 )}
               </button>
             </li>
