@@ -9,7 +9,7 @@ import { AiFillDownCircle } from "react-icons/ai";
 import { useRef } from "react";
 import { Indicator, Menu, Avatar } from "@mantine/core";
 import LinePoints from "./components/line-points";
-const Top = (isSomehowMobile: { isSomehowMobile: boolean }) => {
+const Top = () => {
   const searchRef = useRef<HTMLInputElement>(null);
   const focus = () => {
     searchRef.current?.focus();

@@ -2,10 +2,10 @@ import Horizontal from "./components/horizontal";
 import Ads from "./components/ads";
 const Side = () => {
   return (
-    <div className="m-4 flex flex-col gap-2 overflow-hidden">
+    <aside className="m-4 flex flex-col gap-2">
       <Horizontal />
       <Ads />
-    </div>
+    </aside>
   );
 };
 export default Side;

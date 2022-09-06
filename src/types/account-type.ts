@@ -74,3 +74,6 @@ export type activePagesType = {
   };
   owner: clientsType | null;
 };
+export type activePageTypeSearch = MakeGenerics<{
+  Search: activePagesType;
+}>;

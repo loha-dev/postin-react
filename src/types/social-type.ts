@@ -1,11 +1,17 @@
 import { MakeGenerics } from "@tanstack/react-location";
 export type socialFilterType = {
-  filter: {
-    out?: string[];
+  socialFilter: {
+    out?: number[];
     all?: boolean;
-    only?: string[];
   };
 };
 export type socialFilterSearch = MakeGenerics<{
   Search: socialFilterType;
 }>;
+export type socialMediaDataTypes = { id: number; title: string; img: string };
+export type socialMediaDataTypesList = {
+  id: number;
+  title: string;
+  img: string;
+  isOut: boolean;
+};

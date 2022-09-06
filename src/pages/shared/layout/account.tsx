@@ -5,6 +5,7 @@ import { Tabs } from "@mantine/core";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { MdOutlineAirplanemodeActive } from "react-icons/md";
 import { Transition } from "@mantine/core";
+import MenuWithIcon from "./components/menuWithIcon";
 import type {
   accountsGenericsSearch,
   clientsType,
@@ -25,14 +26,15 @@ const Account = () => {
   const searchActive = useSearch<activeAccountSearch>();
   const navigate = useNavigate<activeAccountSearch>();
   const [active, setAccount] = useAtom(accountAtom);
-  const { data: clients } = useQuery(["clients"], async () => {
-    const { data } = await supabase.from("clients");
-    return data as clientsType[];
-  });
+
   const [inputSearch, setInputSearch] = useState("");
   const [filtered, setFiltered] = useState<clientsType[] | undefined>(
     undefined
   );
+  const { data: clients } = useQuery(["clients"], async () => {
+    const { data } = await supabase.from("clients");
+    return data as clientsType[];
+  });
   const inputSearchHandler = (query: string) => {
     setFiltered(
       clients?.filter((handler) =>
@@ -44,14 +46,13 @@ const Account = () => {
   useEffect(() => {
     if (search.name !== undefined) {
       setInputSearch(search.name);
-      const getFilteredFromUrl = async () => {
+      (async () => {
         const { data } = await supabase
           .from("clients")
           .select("*")
           .ilike("name", `%${search.name}%`);
         setFiltered(data as clientsType[]);
-      };
-      getFilteredFromUrl();
+      })();
     }
   }, []);
   const [activeTab, setActiveTab] = useState<"accounts" | "active">("accounts");
@@ -86,7 +87,7 @@ const Account = () => {
     }
   }, [searchActive, active]);
   return (
-    <div className="my-4 bg-white rounded-xl py-4 px-3">
+    <div className="my-4 bg-white rounded-xl py-4 px-3 min-w-[18rem] max-w-[20rem]">
       <p className="text-gray-500">Choisissez une compte</p>
       <Tabs
         value={activeTab}
@@ -114,7 +115,7 @@ const Account = () => {
           <Transition
             mounted={activeTab === "accounts"}
             transition="slide-up"
-            duration={350}
+            duration={300}
             timingFunction="ease"
           >
             {(styles) => (
@@ -135,7 +136,7 @@ const Account = () => {
                       inputSearchHandler(event.target.value);
                     }}
                     placeholder="Type here"
-                    className="h-10 px-5 rounded-md text-sm focus:outline-none bg-fotsy w-72"
+                    className="h-10 px-5 rounded-md text-sm focus:outline-none bg-fotsy w-full"
                   />
                   <button className="absolute right-0 top-2 mt-4 mr-4">
                     <IoMdSearch className="w-5 h-5" />
@@ -143,7 +144,7 @@ const Account = () => {
                 </div>
                 <ScrollArea
                   style={{
-                    height: "75vh",
+                    height: "70vh",
                   }}
                 >
                   <div className="flex flex-col gap-2">
@@ -185,7 +186,7 @@ const Account = () => {
           <Transition
             mounted={activeTab === "active"}
             transition="slide-up"
-            duration={350}
+            duration={300}
             timingFunction="ease"
           >
             {(styles) => (

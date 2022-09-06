@@ -44,7 +44,7 @@ const ActiveTab = ({ active }: { active: clientsType | null }) => {
       </h3>
       <ScrollArea
         style={{
-          height: "75vh",
+          maxHeight: "60vh",
         }}
       >
         {activePages?.map((pages) => {

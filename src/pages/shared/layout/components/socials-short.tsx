@@ -1,24 +1,21 @@
 import { useAtom } from "jotai";
-import { pageAtom, accountAtom } from "../../../../atomic/accounts-atom";
-import type { clientsType } from "../../../../types/account-type";
+import { pageAtom } from "../../../../atomic/accounts-atom";
+import { useNavigate } from "@tanstack/react-location";
+import type {
+  clientsType,
+  clientsPagesType,
+} from "../../../../types/account-type";
+import { activePageTypeSearch } from "../../../../types/account-type";
 const SocialShort = ({
   id,
   title,
   social: { title: social, img, id: socialId },
   active,
-}: {
-  id: number;
-  title: string;
-  social: {
-    id: number;
-    title: string;
-    img: string;
-  };
-  active: clientsType | null;
-}) => {
+}: clientsPagesType & { active: clientsType | null }) => {
+  const navigate = useNavigate<activePageTypeSearch>();
   const [page, setPage] = useAtom(pageAtom);
   const handleSetPage = () => {
-    setPage({
+    const page = {
       id: id,
       title: title,
       social: {
@@ -27,6 +24,11 @@ const SocialShort = ({
         img: img,
       },
       owner: active,
+    };
+    setPage(page);
+    navigate({
+      search: page,
+      replace: true,
     });
   };
   return (

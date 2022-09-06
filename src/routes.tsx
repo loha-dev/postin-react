@@ -1,9 +1,10 @@
-import SignIn from "./pages/shared/auth/sign-in"
-import SignUp from "./pages/shared/auth/sign-up"
-import ForgotPassword from "./pages/shared/auth/forgot-password"
-import MainLayout from "./pages/shared/layout/z-layout"
-import Facebook from "./pages/shared/facebook/facebook"
-import Planning from "./pages/shared/planning/planning"
+import SignIn from "./pages/shared/auth/sign-in";
+import SignUp from "./pages/shared/auth/sign-up";
+import ForgotPassword from "./pages/shared/auth/forgot-password";
+import MainLayout from "./pages/shared/layout/z-layout";
+import Facebook from "./pages/shared/facebook/facebook";
+import Planning from "./pages/shared/planning/planning";
+import Dashboard from "./pages/shared/home/dashboard";
 export const routes = [
   {
     path: "auth",
@@ -28,7 +29,7 @@ export const routes = [
     children: [
       {
         path: "dashboard",
-        element: <div>'🫠'</div>,
+        element: <Dashboard />,
       },
       {
         path: "facebook",
@@ -36,7 +37,7 @@ export const routes = [
       },
       {
         path: "planning",
-        element: <Planning />
+        element: <Planning />,
       },
       {
         path: "super-admin",
@@ -52,4 +53,4 @@ export const routes = [
       },
     ],
   },
-]
+];

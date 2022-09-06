@@ -32,7 +32,7 @@ body::-webkit-scrollbar-thumb
 	background-color: transparent;
 } 
 .mantine-ScrollArea-thumb {
-	background-color: #4889c2;
+	background-color: #4889c2 !important;
 	width: 1px !important;
 
 }
