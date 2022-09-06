@@ -21,22 +21,7 @@ export default function Facebook() {
       console.log(response)
     })
 
-  // user login
-  const facebookGetUserInfo = () => {
-    FB.login(function (response: any) {
-      console.log(response)
-      if (response.authResponse) {
-        console.log("Welcome!  Fetching your information.... ")
-        FB.api("/me", function (me: any) {
-          console.log("me: ", me)
-
-          console.log("Good to see you, " + me.name + ".")
-        })
-      } else {
-        console.log("User cancelled login or did not fully authorize.")
-      }
-    })
-  }
+  const facebookGetUserInfo = () => {}
 
   const logout = () => {
     FB.logout((response: any) => {
