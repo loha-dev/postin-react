@@ -23,10 +23,34 @@ export type FacebookPage = {
 
 export type FacebookPageList = FacebookPage[]
 
-export type FacebookLongLivedAccess = {
-  access_token: string
-  token_type: string
-  expires_in: number
+export type FacebookPageTokenRespone = {
+  data:[
+    {
+      access_token:string,
+      category:string,
+      category_list:[
+        {
+          id:string,
+          name:string
+        }
+      ],
+      name:string,
+      id:string,
+      tasks:string[]
+    }
+  ],
+  paging:{
+    cursors:{
+      before:string,
+      after:string
+    }
+  }
+}
+
+export type RedeemToken={
+  access_token:string
+  expires_in:number
+  machine_id:string
 }
 
 export type FacebookPagePost = {

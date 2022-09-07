@@ -68,9 +68,17 @@ const getFacebookPageAccessMachine = createMachine(
         for (const page in pages) {
           fetch(
             `https://graph.facebook.com/{graph-api-version}/{user-id}/accounts?access_token={long-lived-user-access-token}`
-          )
-        }
-      },
+            )
+          }
+        },
+        getClientCode: ():{code:string} => {
+          // machine_id optional
+          fetch(`https://graph.facebook.com/{graph-api-version}/oauth/?client_id={app-id}&client_secret={app-secret}&redirect_uri={app-redirect-uri}&access_token={long-lived-user-access-token}`)
+          return {code:""}
+        },
+        redeemToken: () => {
+          fetch(`https://graph.facebook.com/{graph-api-version}/oauth/access_token?code={code-for-your-client}&client_id={app-id}&redirect_uri={app-redirect-uri}&machine_id= {your-client-machine-id}`)
+        },
       logout: () => {
         FB.logout((response: any) => {
           console.log("logout ", response)
