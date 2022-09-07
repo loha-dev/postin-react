@@ -5,6 +5,7 @@ import MainLayout from "./pages/shared/layout/z-layout";
 import Facebook from "./pages/shared/facebook/facebook";
 import Planning from "./pages/shared/planning/planning";
 import Dashboard from "./pages/shared/home/dashboard";
+import Feeds from "./pages/shared/feeds/z-feed";
 export const routes = [
   {
     path: "auth",
@@ -38,6 +39,10 @@ export const routes = [
       {
         path: "planning",
         element: <Planning />,
+      },
+      {
+        path: "feeds",
+        element: <Feeds />,
       },
       {
         path: "super-admin",
