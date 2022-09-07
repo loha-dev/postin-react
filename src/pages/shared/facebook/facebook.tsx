@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react"
 // @ts-ignore
 import useFacebook from "use-facebook"
+import { facebookPageImportMachine } from "../../../machines/FacebookPageImportMachine"
+import { useMachine } from "@xstate/react"
 
 const options = {
   appId: process.env.FACEBOOK_APP_ID,
@@ -10,27 +12,30 @@ const options = {
 
 export default function Facebook() {
   const { isFacebookSDKReady } = useFacebook(options)
+  const [current, send] = useMachine(facebookPageImportMachine)
+  // check if sdk is loaded and ready
   useEffect(() => {
     console.log("ready? ", isFacebookSDKReady)
     if (isFacebookSDKReady) {
-      getLoginStatus()
+      send("READY")
     }
   }, [isFacebookSDKReady])
-  const getLoginStatus = () =>
-    FB.getLoginStatus(function (response: any) {
-      console.log(response)
-    })
 
-  const facebookGetUserInfo = () => {}
+  // useEffect(() => {
+  //   console.log(current)
+  // }, current)
 
+  const login = () => {
+    send("OPEN_LOGIN")
+  }
+
+  // logout
   const logout = () => {
-    FB.logout((response: any) => {
-      console.log("logout ", response)
-    })
+    send("LOGOUT")
   }
   return (
     <div>
-      <button onClick={facebookGetUserInfo}>FB Login</button>
+      <button onClick={login}>FB Login</button>
       <br />
       <button onClick={logout}>FB logout</button>
     </div>
