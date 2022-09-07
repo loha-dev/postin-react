@@ -10,12 +10,14 @@ const options = {
 
 export default function Facebook() {
   const { isFacebookSDKReady } = useFacebook(options)
+  // check if sdk is loaded and ready
   useEffect(() => {
     console.log("ready? ", isFacebookSDKReady)
     if (isFacebookSDKReady) {
       getLoginStatus()
     }
   }, [isFacebookSDKReady])
+
   const getLoginStatus = () =>
     FB.getLoginStatus(function (response: any) {
       console.log(response)
@@ -23,6 +25,7 @@ export default function Facebook() {
 
   const facebookGetUserInfo = () => {}
 
+  // logout
   const logout = () => {
     FB.logout((response: any) => {
       console.log("logout ", response)

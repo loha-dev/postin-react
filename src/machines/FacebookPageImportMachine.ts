@@ -7,34 +7,42 @@ const getFacebookPageAccessMachine = createMachine(
     states: {
       idle: {
         on: {
+          OPEN_LOGIN: {
+            actions: "getUserInfo",
+          },
           USER_LOGIN: {
             target: "logged_in",
           },
-        },
-        states: {
-          idle: {},
-          popup: {},
-          timeout: {},
         },
       },
       logged_in: {
         on: {
           GET_USER_TOKEN: {
-            target: "user_token",
+            actions: "showPageList",
+          },
+          SHOW_PAGES: {
+            actions: "showPageList",
+          },
+          PAGE_SELECTED: {
+            target: "pages_selected",
           },
         },
       },
-      user_token: {
-        states: {
-          idle: {
-            on: {
-              SHOW_PAGES: { target: "showing_pages" },
-            },
+      pages_selected: {
+        on: {
+          "": {
+            actions: "importPages",
+            target: "importing",
           },
-          showing_pages: {},
         },
       },
-      pages_selected: {},
+      importing: {
+        on: {
+          FINISHED_IMPORT: {
+            target: "pages_tokens",
+          },
+        },
+      },
       pages_tokens: {},
       tokens_saved: {},
       success: {},
@@ -63,22 +71,27 @@ const getFacebookPageAccessMachine = createMachine(
         )
       },
       showPageList: () => {},
-      getPagesTokens: () => {
+      // getPagesTokens
+      importPages: () => {
         const pages: string[] = []
         for (const page in pages) {
           fetch(
             `https://graph.facebook.com/{graph-api-version}/{user-id}/accounts?access_token={long-lived-user-access-token}`
-            )
-          }
-        },
-        getClientCode: ():{code:string} => {
-          // machine_id optional
-          fetch(`https://graph.facebook.com/{graph-api-version}/oauth/?client_id={app-id}&client_secret={app-secret}&redirect_uri={app-redirect-uri}&access_token={long-lived-user-access-token}`)
-          return {code:""}
-        },
-        redeemToken: () => {
-          fetch(`https://graph.facebook.com/{graph-api-version}/oauth/access_token?code={code-for-your-client}&client_id={app-id}&redirect_uri={app-redirect-uri}&machine_id= {your-client-machine-id}`)
-        },
+          )
+        }
+      },
+      getClientCode: (): { code: string } => {
+        // machine_id optional
+        fetch(
+          `https://graph.facebook.com/{graph-api-version}/oauth/?client_id={app-id}&client_secret={app-secret}&redirect_uri={app-redirect-uri}&access_token={long-lived-user-access-token}`
+        )
+        return { code: "" }
+      },
+      redeemToken: () => {
+        fetch(
+          `https://graph.facebook.com/{graph-api-version}/oauth/access_token?code={code-for-your-client}&client_id={app-id}&redirect_uri={app-redirect-uri}&machine_id= {your-client-machine-id}`
+        )
+      },
       logout: () => {
         FB.logout((response: any) => {
           console.log("logout ", response)
