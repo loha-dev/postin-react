@@ -1,6 +1,6 @@
 import { actions, createMachine } from "xstate"
 
-const getFacebookPageAccessMachine = createMachine(
+export const facebookPageImportMachine = createMachine(
   {
     id: "facebook_import_pages",
     initial: "idle",
