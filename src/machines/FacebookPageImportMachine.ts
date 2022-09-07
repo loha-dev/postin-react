@@ -1,7 +1,7 @@
 import { type } from "os"
 import { actions, assign, createMachine } from "xstate"
 import { send } from "xstate/lib/actions"
-import { FacebookAuthResponse } from "../types/facebook"
+import { FacebookAuthResponse, FacebookStatusResponse } from "../types/facebook"
 
 const getUserInfo = () => {
   FB.login(function (response: any) {
@@ -24,6 +24,15 @@ const saveAuthResponse = () =>
       event.response,
   })
 
+const getLoginStatus = () =>
+  FB.getLoginStatus(function (response) {
+    console.log(response)
+
+    if (response.status == "connected") {
+      send("CONNECTED")
+    }
+  })
+
 export const facebookPageImportMachine = createMachine(
   {
     id: "facebook_import_pages",
@@ -42,6 +51,12 @@ export const facebookPageImportMachine = createMachine(
     states: {
       idle: {
         on: {
+          READY: {
+            actions: "getLoginStatus",
+          },
+          CONNECTED: {
+            target: "logged_in",
+          },
           OPEN_LOGIN: {
             actions: "getUserInfo",
           },
@@ -58,10 +73,8 @@ export const facebookPageImportMachine = createMachine(
         },
       },
       logged_in: {
+        entry: "getLoginStatus",
         on: {
-          GET_USER_TOKEN: {
-            actions: "showPageList",
-          },
           FETCH_ME: {
             actions: "fetchMe",
           },
@@ -70,6 +83,10 @@ export const facebookPageImportMachine = createMachine(
           },
           PAGE_SELECTED: {
             target: "pages_selected",
+          },
+          LOGOUT: {
+            target: "logged_out",
+            actions: "logout",
           },
         },
       },
@@ -91,11 +108,13 @@ export const facebookPageImportMachine = createMachine(
       pages_tokens: {},
       tokens_saved: {},
       canceled: {},
+      logged_out: {},
       success: {},
     },
   },
   {
     actions: {
+      getLoginStatus,
       getUserInfo,
       saveAuthResponse,
       fetchMe: () => {
@@ -133,6 +152,8 @@ export const facebookPageImportMachine = createMachine(
         )
       },
       logout: () => {
+        console.log("logout triggered")
+
         FB.logout((response: any) => {
           console.log("logout ", response)
         })

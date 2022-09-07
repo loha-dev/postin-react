@@ -6,5 +6,5 @@ import mkcert from "vite-plugin-mkcert"
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), mkcert(), EnvironmentPlugin(["ANON_KEY", "API_URL"])],
+  plugins: [react(), basicSsl(), EnvironmentPlugin(["ANON_KEY", "API_URL"])],
 })

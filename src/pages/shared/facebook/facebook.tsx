@@ -17,14 +17,13 @@ export default function Facebook() {
   useEffect(() => {
     console.log("ready? ", isFacebookSDKReady)
     if (isFacebookSDKReady) {
-      getLoginStatus()
+      send("READY")
     }
   }, [isFacebookSDKReady])
 
-  const getLoginStatus = () =>
-    FB.getLoginStatus(function (response: any) {
-      console.log(response)
-    })
+  // useEffect(() => {
+  //   console.log(current)
+  // }, current)
 
   const login = () => {
     send("OPEN_LOGIN")
@@ -32,9 +31,7 @@ export default function Facebook() {
 
   // logout
   const logout = () => {
-    FB.logout((response: any) => {
-      console.log("logout ", response)
-    })
+    send("LOGOUT")
   }
   return (
     <div>
