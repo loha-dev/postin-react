@@ -1,19 +1,19 @@
-import { Link } from "@tanstack/react-location";
-import { IoMdNotifications, IoMdSearch } from "react-icons/io";
+import { Link } from "@tanstack/react-location"
+import { IoMdNotifications, IoMdSearch } from "react-icons/io"
 import {
   IoSettingsOutline,
   IoPersonOutline,
   IoLogOutOutline,
-} from "react-icons/io5";
-import { AiFillDownCircle } from "react-icons/ai";
-import { useRef } from "react";
-import { Indicator, Menu, Avatar } from "@mantine/core";
-import LinePoints from "./components/line-points";
+} from "react-icons/io5"
+import { AiFillDownCircle } from "react-icons/ai"
+import { useRef } from "react"
+import { Indicator, Menu, Avatar } from "@mantine/core"
+import LinePoints from "./components/line-points"
 const Top = () => {
-  const searchRef = useRef<HTMLInputElement>(null);
+  const searchRef = useRef<HTMLInputElement>(null)
   const focus = () => {
-    searchRef.current?.focus();
-  };
+    searchRef.current?.focus()
+  }
 
   return (
     <div className="bg-white flex text-gray-800  hover:text-black focus:outline-none focus:text-black justify-between w-full p-3 items-center ">
@@ -243,6 +243,17 @@ const Top = () => {
                 Preferences
               </span>
             </a>
+            <Link
+              to={"facebook"}
+              className="relative cursor-pointer flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+            >
+              <span className="inline-flex justify-center items-center ml-4">
+                <IoSettingsOutline className="w-5 h-5" />
+              </span>
+              <span className="ml-2 text-sm tracking-wide truncate">
+                Facebook
+              </span>
+            </Link>
             <a className="relative cursor-pointer flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
               <span className="inline-flex justify-center items-center ml-4">
                 <IoLogOutOutline className="w-5 h-5" />
@@ -295,6 +306,6 @@ const Top = () => {
         </Menu>
       </div>
     </div>
-  );
-};
-export default Top;
+  )
+}
+export default Top
