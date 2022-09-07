@@ -3,6 +3,27 @@ import { actions, assign, createMachine } from "xstate"
 import { send } from "xstate/lib/actions"
 import { FacebookAuthResponse } from "../types/facebook"
 
+const getUserInfo = () => {
+  FB.login(function (response: any) {
+    console.log(response)
+    if (response.authResponse) {
+      // assign((context) => (context.auth = response.authResponse))
+      send({ type: "GOT_RESPONSE", response: response.authResponse })
+      console.log("Welcome!  Fetching your information.... ")
+    } else {
+      send({ type: "CANCELED" })
+
+      console.log("User cancelled login or did not fully authorize.")
+    }
+  })
+}
+
+const saveAuthResponse = () =>
+  assign({
+    auth: (context, event: { type: string; response: FacebookAuthResponse }) =>
+      event.response,
+  })
+
 export const facebookPageImportMachine = createMachine(
   {
     id: "facebook_import_pages",
@@ -31,9 +52,11 @@ export const facebookPageImportMachine = createMachine(
             target: "logged_in",
             actions: "saveAuthResponse",
           },
+          CANCELED: {
+            target: "canceled",
+          },
         },
       },
-      canceled: {},
       logged_in: {
         on: {
           GET_USER_TOKEN: {
@@ -67,30 +90,14 @@ export const facebookPageImportMachine = createMachine(
       },
       pages_tokens: {},
       tokens_saved: {},
+      canceled: {},
       success: {},
     },
   },
   {
     actions: {
-      getUserInfo: () => {
-        FB.login(function (response: any) {
-          console.log(response)
-          if (response.authResponse) {
-            // assign((context) => (context.auth = response.authResponse))
-            send({ type: "GOT_RESPONSE", response: response.authResponse })
-            console.log("Welcome!  Fetching your information.... ")
-          } else {
-            console.log("User cancelled login or did not fully authorize.")
-          }
-        })
-      },
-      saveAuthResponse: () =>
-        assign({
-          auth: (
-            context,
-            event: { type: string; response: FacebookAuthResponse }
-          ) => event.response,
-        }),
+      getUserInfo,
+      saveAuthResponse,
       fetchMe: () => {
         FB.api("/me", function (me: any) {
           console.log("me: ", me)
