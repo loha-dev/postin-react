@@ -1,23 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&display=swap');
-
+@import url('http://fonts.cdnfonts.com/css/satoshi');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Satoshi', 'Nunito', sans-serif;
 }
 body::-webkit-scrollbar
 {
-	width: 5px;
+	width: 4px;
 	background-color: #F5F5F5;
 	height: 4px;
 }
 
 body::-webkit-scrollbar-thumb
 {
-	background-color: #2986d8;
-	border: 3px solid #2986d8;
+	background-color: #5297d3;
+	border: 2px solid #5ca1de;
+	border-radius: 10rem;
 }
 /* .mantine-ScrollArea-scrollbar
 {
@@ -33,6 +34,5 @@ body::-webkit-scrollbar-thumb
 } 
 .mantine-ScrollArea-thumb {
 	background-color: #4889c2 !important;
-	width: 1px !important;
 
 }

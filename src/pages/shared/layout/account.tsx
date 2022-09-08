@@ -26,7 +26,6 @@ const Account = () => {
   const searchActive = useSearch<activeAccountSearch>();
   const navigate = useNavigate<activeAccountSearch>();
   const [active, setAccount] = useAtom(accountAtom);
-
   const [inputSearch, setInputSearch] = useState("");
   const [filtered, setFiltered] = useState<clientsType[] | undefined>(
     undefined

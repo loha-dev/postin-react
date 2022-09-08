@@ -26,3 +26,4 @@ dist-ssr
 .env
 .env*.local
 yarn.lock
+vite.config.ts

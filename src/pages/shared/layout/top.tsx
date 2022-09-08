@@ -1,22 +1,22 @@
-import { Link } from "@tanstack/react-location"
-import { IoMdNotifications, IoMdSearch } from "react-icons/io"
+import { Link } from "@tanstack/react-location";
+import { IoMdNotifications, IoMdSearch } from "react-icons/io";
 import {
   IoSettingsOutline,
   IoPersonOutline,
   IoLogOutOutline,
-} from "react-icons/io5"
-import { AiFillDownCircle } from "react-icons/ai"
-import { useRef } from "react"
-import { Indicator, Menu, Avatar } from "@mantine/core"
-import LinePoints from "./components/line-points"
+} from "react-icons/io5";
+import { AiFillDownCircle } from "react-icons/ai";
+import { useRef } from "react";
+import { Indicator, Menu, Avatar } from "@mantine/core";
+import LinePoints from "./components/line-points";
 const Top = () => {
-  const searchRef = useRef<HTMLInputElement>(null)
+  const searchRef = useRef<HTMLInputElement>(null);
   const focus = () => {
-    searchRef.current?.focus()
-  }
+    searchRef.current?.focus();
+  };
 
   return (
-    <div className="bg-white flex text-gray-800  hover:text-black focus:outline-none focus:text-black justify-between w-full p-3 items-center ">
+    <div className="bg-white flex text-gray-800  hover:text-black focus:outline-none focus:text-black justify-between w-full py-1 px-4 items-center ">
       <Link className="flex justify-between  items-center space-x-3">
         <>
           <img
@@ -27,14 +27,14 @@ const Top = () => {
           <p className="text-4xl leading-6 font-bold">Post-In</p>
         </>
       </Link>
-      <div className="flex-1"></div>
+      <div className="flex-grow"></div>
       <div className="relative p-1 rounded-xl mr-5">
         <input
           type="search"
           name="serch"
           ref={searchRef}
           placeholder="Search"
-          className="h-10 px-5 pr-10 rounded-full text-sm focus:outline-none bg-fotsy w-72"
+          className="h-10 px-5 pr-10 rounded-full text-sm focus:outline-none bg-fotsy w-96"
         />
         <button
           type="submit"
@@ -44,6 +44,7 @@ const Top = () => {
           <IoMdSearch className="w-5 h-5" />
         </button>
       </div>
+      <div className="flex-1"></div>
       <div className="flex items-center gap-3">
         <Menu
           trigger="hover"
@@ -306,6 +307,6 @@ const Top = () => {
         </Menu>
       </div>
     </div>
-  )
-}
-export default Top
+  );
+};
+export default Top;

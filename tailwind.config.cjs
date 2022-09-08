@@ -9,8 +9,10 @@ module.exports = {
       },
       fontFamily: {
         'body': "Nunito",
-
       },
+      gridTemplateColumns: {
+        'feeds': '1fr minmax(250px, 30%)',
+      }
     },
   },
   plugins: [],

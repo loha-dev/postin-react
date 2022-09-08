@@ -104,7 +104,7 @@ const SocialMedia = () => {
         {socialsList?.map((social) => {
           return (
             <li
-              className="py-2 px-7 relative bg-fotsy flex items-center justify-end gap-2 rounded-3xl "
+              className="py-2 px-7 relative bg-white flex items-center justify-end gap-2 rounded-3xl bg-opacity-60"
               key={social.id}
               onClick={() => handleFilter(social.id)}
             >

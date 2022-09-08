@@ -21,10 +21,10 @@ const MainLayout = () => {
           <Account />
 
           <div className="m-4 ">
-            <div className=" bg-white rounded-xl mb-3">
+            <div className="rounded-xl mb-3">
               <SocialMedia />
             </div>
-            <div className=" bg-white rounded-xl text-center w-full">
+            <div className="rounded-xl text-center w-full">
               <Outlet />
             </div>
           </div>

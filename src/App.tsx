@@ -30,7 +30,7 @@ const App = () => {
           withNormalizeCSS
           withGlobalStyles
           theme={{
-            fontFamily: "Nunito, Verdana, sans-serif",
+            fontFamily: "Satoshi, Nunito, Verdana, sans-serif",
             fontFamilyMonospace: "Monaco, Courier, monospace",
             headings: { fontFamily: "Greycliff CF, sans-serif" },
           }}
