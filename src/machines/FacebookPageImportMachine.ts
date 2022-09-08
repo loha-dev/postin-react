@@ -49,30 +49,28 @@ export const facebookPageImportMachine = createMachine(
       me: {},
     },
     states: {
-      idle: {
+      
         on: {
           READY: {
             actions: "getLoginStatus",
           },
           CONNECTED: {
-            target: "logged_in",
+            target: ".select_pages",
           },
           OPEN_LOGIN: {
             actions: "getUserInfo",
           },
-          USER_LOGIN: {
-            target: "logged_in",
-          },
           GOT_RESPONSE: {
-            target: "logged_in",
+            target: ".select_pages",
             actions: "saveAuthResponse",
           },
           CANCELED: {
             target: "canceled",
           },
         },
-      },
-      logged_in: {
+        idle:{},
+      
+      select_pages: {
         entry: "getLoginStatus",
         on: {
           FETCH_ME: {
