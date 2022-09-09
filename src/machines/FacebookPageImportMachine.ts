@@ -27,10 +27,9 @@ const saveAuthResponse = () =>
 const getLoginStatus = () =>
   FB.getLoginStatus(function (response) {
     console.log(response)
-
-    if (response.status == "connected") {
-      send("CONNECTED")
-    }
+    if (response.status !== "connected") return
+    console.log("connected")
+    send({ type: "GOT_RESPONSE", response: response.authResponse })
   })
 
 export const facebookPageImportMachine = createMachine(
@@ -50,9 +49,10 @@ export const facebookPageImportMachine = createMachine(
     },
     states: {
       idle: {},
-
       select_pages: {
-        entry: "getLoginStatus",
+        entry: () => {
+          console.log("entered select pages state")
+        },
         on: {
           FETCH_ME: {
             actions: "fetchMe",
@@ -89,9 +89,6 @@ export const facebookPageImportMachine = createMachine(
     on: {
       READY: {
         actions: "getLoginStatus",
-      },
-      CONNECTED: {
-        target: ".select_pages",
       },
       OPEN_LOGIN: {
         actions: "getUserInfo",
