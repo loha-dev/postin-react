@@ -63,10 +63,6 @@ export const facebookPageImportMachine = createMachine(
           PAGE_SELECTED: {
             target: "pages_selected",
           },
-          LOGOUT: {
-            target: "logged_out",
-            actions: "logout",
-          },
         },
       },
       pages_selected: {
@@ -106,6 +102,10 @@ export const facebookPageImportMachine = createMachine(
       },
       CANCELED: {
         target: "canceled",
+      },
+      LOGOUT: {
+        target: "logged_out",
+        actions: "logout",
       },
     },
   },
