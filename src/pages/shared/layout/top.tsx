@@ -19,11 +19,7 @@ const Top = () => {
     <div className="bg-white flex text-gray-800  hover:text-black focus:outline-none focus:text-black justify-between w-full py-1 px-4 items-center ">
       <Link className="flex justify-between  items-center space-x-3">
         <>
-          <img
-            src="https://cdn.discordapp.com/attachments/951842462568153098/1015641403663061002/Untitled_design_3.png"
-            alt="logo"
-            className="w-12 h-12"
-          />
+          <img src="/images/light-logo.png" alt="logo" className="w-12 h-12" />
           <p className="text-4xl leading-6 font-bold">Post-In</p>
         </>
       </Link>

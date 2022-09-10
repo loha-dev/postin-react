@@ -1,4 +1,16 @@
-import { AiOutlineHome } from "react-icons/ai";
+import {
+  IoHome,
+  IoCreateSharp,
+  IoNotificationsSharp,
+  IoChatbubbles,
+} from "react-icons/io5";
+import { MdStickyNote2, MdPersonAdd } from "react-icons/md";
+import { RiTaskFill, RiMailCheckFill, RiTeamFill } from "react-icons/ri";
+import { CgFeed } from "react-icons/cg";
+import { Link } from "@tanstack/react-location";
+import { ImStatsDots } from "react-icons/im";
+import { BsFileEarmarkSpreadsheetFill } from "react-icons/bs";
+import { Divider } from "@mantine/core";
 
 const Horizontal = () => {
   return (
@@ -14,254 +26,203 @@ const Horizontal = () => {
               </div>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                getActiveProps={getActiveProps}
+                to="/dashboard"
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span className="inline-flex justify-center items-center ml-4">
-                  <AiOutlineHome className="w-5 h-5" />
+                  <IoHome className="w-5 h-5" />
                 </span>
-                <span className="ml-2 text-sm tracking-wide truncate">
-                  Dashboard
+                <span className="ml-2 text-md tracking-wide truncate">
+                  Tableau de bord
                 </span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                getActiveProps={getActiveProps}
+                to="/create"
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span className="inline-flex justify-center items-center ml-4">
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
-                    />
-                  </svg>
+                  <IoCreateSharp className="w-5 h-5" />
                 </span>
-                <span className="ml-2 text-sm tracking-wide truncate">
-                  Inbox
+                <span className="ml-2 text-md tracking-wide truncate">
+                  Crée une publication
                 </span>
                 <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-indigo-500 bg-indigo-50 rounded-full">
-                  New
+                  +
                 </span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                getActiveProps={getActiveProps}
+                to="/feeds"
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span className="inline-flex justify-center items-center ml-4">
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
-                    />
-                  </svg>
+                  <CgFeed className="w-5 h-5" />
                 </span>
-                <span className="ml-2 text-sm tracking-wide truncate">
-                  Messages
+                <span className="ml-2 text-md tracking-wide truncate">
+                  Fils d' actualites
                 </span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                getActiveProps={getActiveProps}
+                to="/notifications"
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span className="inline-flex justify-center items-center ml-4">
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                    />
-                  </svg>
+                  <IoNotificationsSharp className="w-5 h-5" />
                 </span>
-                <span className="ml-2 text-sm tracking-wide truncate">
+                <span className="ml-2 text-md tracking-wide truncate">
                   Notifications
                 </span>
                 <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-500 bg-red-50 rounded-full">
                   1.2k
                 </span>
-              </a>
+              </Link>
             </li>
             <li className="px-5">
               <div className="flex flex-row items-center h-8">
                 <div className="text-sm font-light tracking-wide text-gray-500">
-                  Tasks
+                  Taches
                 </div>
               </div>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                getActiveProps={getActiveProps}
+                to="/tasks"
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span className="inline-flex justify-center items-center ml-4">
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-                    />
-                  </svg>
+                  <RiTaskFill className="w-5 h-5" />
                 </span>
-                <span className="ml-2 text-sm tracking-wide truncate">
-                  Available Tasks
+                <span className="ml-2 text-md tracking-wide truncate">
+                  Tache a faire
                 </span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                getActiveProps={getActiveProps}
+                to="/notes"
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span className="inline-flex justify-center items-center ml-4">
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
-                    />
-                  </svg>
+                  <MdStickyNote2 className="w-5 h-5" />
                 </span>
-                <span className="ml-2 text-sm tracking-wide truncate">
-                  Clients
+                <span className="ml-2 text-md tracking-wide truncate">
+                  Memos et notes
                 </span>
                 <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-green-500 bg-green-50 rounded-full">
                   15
                 </span>
-              </a>
+              </Link>
             </li>
             <li className="px-5">
               <div className="flex flex-row items-center h-8">
                 <div className="text-sm font-light tracking-wide text-gray-500">
-                  Settings
+                  Communication
                 </div>
               </div>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                getActiveProps={getActiveProps}
+                to="/reception"
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span className="inline-flex justify-center items-center ml-4">
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                    />
-                  </svg>
+                  <RiMailCheckFill className="w-5 h-5" />
                 </span>
-                <span className="ml-2 text-sm tracking-wide truncate">
-                  Profile
+                <span className="ml-2 text-md tracking-wide truncate">
+                  Boite de reception
                 </span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                getActiveProps={getActiveProps}
+                to="/conversation"
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span className="inline-flex justify-center items-center ml-4">
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                  </svg>
+                  <IoChatbubbles className="w-5 h-5" />
                 </span>
-                <span className="ml-2 text-sm tracking-wide truncate">
-                  Settings
+                <span className="ml-2 text-md tracking-wide truncate">
+                  Conversation
                 </span>
-              </a>
+              </Link>
+            </li>
+            <li className="px-5">
+              <div className="flex flex-row items-center h-8">
+                <div className="text-sm font-light tracking-wide text-gray-500">
+                  Autres
+                </div>
+              </div>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                getActiveProps={getActiveProps}
+                to="/stats"
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
                 <span className="inline-flex justify-center items-center ml-4">
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                    />
-                  </svg>
+                  <ImStatsDots className="w-5 h-5" />
                 </span>
-                <span className="ml-2 text-sm tracking-wide truncate">
-                  Logout
+                <span className="ml-2 text-md tracking-wide truncate">
+                  Statistiques
                 </span>
-              </a>
+              </Link>
+            </li>
+            <li>
+              <Link
+                getActiveProps={getActiveProps}
+                to="/prospect"
+                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+              >
+                <span className="inline-flex justify-center items-center ml-4">
+                  <BsFileEarmarkSpreadsheetFill className="w-5 h-5" />
+                </span>
+                <span className="ml-2 text-md tracking-wide truncate">
+                  Fiche de prospects
+                </span>
+              </Link>
+            </li>
+            <Divider my="md" label="x" labelPosition="center" />
+            <li>
+              <Link
+                getActiveProps={getActiveProps}
+                to="/comptes"
+                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+              >
+                <span className="inline-flex justify-center items-center ml-4">
+                  <MdPersonAdd className="w-5 h-5" />
+                </span>
+                <span className="ml-2 text-md tracking-wide truncate">
+                  Gerer les comptes
+                </span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                getActiveProps={getActiveProps}
+                to="/team"
+                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+              >
+                <span className="inline-flex justify-center items-center ml-4">
+                  <RiTeamFill className="w-5 h-5" />
+                </span>
+                <span className="ml-2 text-md tracking-wide truncate">
+                  Gerer les equipes
+                </span>
+              </Link>
             </li>
           </ul>
         </div>
@@ -270,3 +231,14 @@ const Horizontal = () => {
   );
 };
 export default Horizontal;
+
+function getActiveProps() {
+  return {
+    style: {
+      fontWeight: "bold",
+      backgroundColor: "rgb(249 250 251)",
+      borderLeftWidth: "0.25rem",
+      borderColor: "rgb(99 102 241)",
+    },
+  };
+}

@@ -6,6 +6,8 @@ import ShortProfile from "../../layout/components/short-profile";
 const Recomendation = () => {
   const { data: clients } = useQuery(["recommendation"], async () => {
     const { data } = await supabase.from("clients").select("*").limit(2);
+    console.log(data);
+
     return data as clientsType[];
   });
   const { data: social, isFetched } = useQuery(["social-media"], async () => {

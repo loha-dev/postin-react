@@ -20,7 +20,7 @@ const Feed = () => {
     <div className="w-full grid grid-cols-feeds gap-4">
       <ScrollArea
         style={{
-          height: "100vh",
+          height: "85vh",
         }}
       >
         <div className="flex  gap-5 flex-col">

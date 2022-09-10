@@ -86,7 +86,7 @@ const Account = () => {
     }
   }, [searchActive, active]);
   return (
-    <div className="my-4 bg-white rounded-xl py-4 px-3 min-w-[18rem]">
+    <div className="my-4 bg-white rounded-xl py-4 px-3 h-[calc(100vh-10vh)]">
       <p className="text-gray-500">Choisissez une compte</p>
       <Tabs
         value={activeTab}
@@ -143,7 +143,7 @@ const Account = () => {
                 </div>
                 <ScrollArea
                   style={{
-                    height: "70vh",
+                    height: "75vh",
                   }}
                 >
                   <div className="flex flex-col gap-2">
