@@ -14,7 +14,7 @@ import { Divider } from "@mantine/core";
 
 const Horizontal = () => {
   return (
-    <div className=" flex flex-col antialiased  text-gray-800 ">
+    <div className="flex flex-col antialiased  text-gray-800">
       <div className="flex flex-col top-0 left-0 bg-white rounded-xl">
         <div className="overflow-y-auto overflow-x-hidden flex-grow">
           <ul className="flex flex-col py-4 space-y-1">
@@ -31,7 +31,7 @@ const Horizontal = () => {
                 to="/dashboard"
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
-                <span className="inline-flex justify-center items-center ml-4">
+                <span className="inline-flex justify-center items-center ml-4 icon-colored">
                   <IoHome className="w-5 h-5" />
                 </span>
                 <span className="ml-2 text-md tracking-wide truncate">
@@ -45,7 +45,7 @@ const Horizontal = () => {
                 to="/create"
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
-                <span className="inline-flex justify-center items-center ml-4">
+                <span className="inline-flex justify-center items-center ml-4 icon-colored">
                   <IoCreateSharp className="w-5 h-5" />
                 </span>
                 <span className="ml-2 text-md tracking-wide truncate">
@@ -62,7 +62,7 @@ const Horizontal = () => {
                 to="/feeds"
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
-                <span className="inline-flex justify-center items-center ml-4">
+                <span className="inline-flex justify-center items-center ml-4 icon-colored">
                   <CgFeed className="w-5 h-5" />
                 </span>
                 <span className="ml-2 text-md tracking-wide truncate">
@@ -76,7 +76,7 @@ const Horizontal = () => {
                 to="/notifications"
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
-                <span className="inline-flex justify-center items-center ml-4">
+                <span className="inline-flex justify-center items-center ml-4 icon-colored">
                   <IoNotificationsSharp className="w-5 h-5" />
                 </span>
                 <span className="ml-2 text-md tracking-wide truncate">
@@ -100,7 +100,7 @@ const Horizontal = () => {
                 to="/tasks"
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
-                <span className="inline-flex justify-center items-center ml-4">
+                <span className="inline-flex justify-center items-center ml-4 icon-colored">
                   <RiTaskFill className="w-5 h-5" />
                 </span>
                 <span className="ml-2 text-md tracking-wide truncate">
@@ -114,7 +114,7 @@ const Horizontal = () => {
                 to="/notes"
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
-                <span className="inline-flex justify-center items-center ml-4">
+                <span className="inline-flex justify-center items-center ml-4 icon-colored">
                   <MdStickyNote2 className="w-5 h-5" />
                 </span>
                 <span className="ml-2 text-md tracking-wide truncate">
@@ -138,7 +138,7 @@ const Horizontal = () => {
                 to="/reception"
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
-                <span className="inline-flex justify-center items-center ml-4">
+                <span className="inline-flex justify-center items-center ml-4 icon-colored">
                   <RiMailCheckFill className="w-5 h-5" />
                 </span>
                 <span className="ml-2 text-md tracking-wide truncate">
@@ -152,7 +152,7 @@ const Horizontal = () => {
                 to="/conversation"
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
-                <span className="inline-flex justify-center items-center ml-4">
+                <span className="inline-flex justify-center items-center ml-4 icon-colored">
                   <IoChatbubbles className="w-5 h-5" />
                 </span>
                 <span className="ml-2 text-md tracking-wide truncate">
@@ -173,7 +173,7 @@ const Horizontal = () => {
                 to="/stats"
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
-                <span className="inline-flex justify-center items-center ml-4">
+                <span className="inline-flex justify-center items-center ml-4 icon-colored">
                   <ImStatsDots className="w-5 h-5" />
                 </span>
                 <span className="ml-2 text-md tracking-wide truncate">
@@ -187,7 +187,7 @@ const Horizontal = () => {
                 to="/prospect"
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
-                <span className="inline-flex justify-center items-center ml-4">
+                <span className="inline-flex justify-center items-center ml-4 icon-colored">
                   <BsFileEarmarkSpreadsheetFill className="w-5 h-5" />
                 </span>
                 <span className="ml-2 text-md tracking-wide truncate">
@@ -202,7 +202,7 @@ const Horizontal = () => {
                 to="/comptes"
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
-                <span className="inline-flex justify-center items-center ml-4">
+                <span className="inline-flex justify-center items-center ml-4 icon-colored">
                   <MdPersonAdd className="w-5 h-5" />
                 </span>
                 <span className="ml-2 text-md tracking-wide truncate">
@@ -216,12 +216,10 @@ const Horizontal = () => {
                 to="/team"
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
               >
-                <span className="inline-flex justify-center items-center ml-4">
+                <span className="inline-flex justify-center items-center ml-4 icon-colored">
                   <RiTeamFill className="w-5 h-5" />
                 </span>
-                <span className="ml-2 text-md tracking-wide truncate">
-                  Gerer les equipes
-                </span>
+                <span>Gerer les equipes</span>
               </Link>
             </li>
           </ul>
@@ -236,9 +234,12 @@ function getActiveProps() {
   return {
     style: {
       fontWeight: "bold",
-      backgroundColor: "rgb(249 250 251)",
+      backgroundColor: "#ebf3f7",
       borderLeftWidth: "0.25rem",
       borderColor: "rgb(99 102 241)",
+      "& span": {
+        color: "red",
+      },
     },
   };
 }
