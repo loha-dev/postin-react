@@ -7,6 +7,7 @@ import Planning from "./pages/shared/planning/planning";
 import Dashboard from "./pages/shared/home/dashboard";
 import Feeds from "./pages/shared/feeds/z-feed";
 import { Navigate } from "@tanstack/react-location";
+import Create from "./pages/shared/create/create";
 export const routes = [
   {
     path: "auth",
@@ -47,6 +48,7 @@ export const routes = [
       },
       {
         path: "create",
+        element: <Create />,
       },
       {
         path: "notifications",

@@ -48,17 +48,20 @@ const SignIn = () => {
       <div className="w-1/2 shadow-2xl">
         <img
           className="hidden object-cover w-full h-screen md:block"
-          src="https://images.unsplash.com/photo-1582896911227-c966f6e7fb93?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1335&q=80"
+          src="/images/ads.jpg"
         />
       </div>
       <div className="flex flex-col w-full md:w-1/2">
-        <div className="flex justify-center pt-10 md:justify-end md:pl-12 md:-mb-24 mx-3">
+        <div className="flex justify-center pt-10 md:justify-end md:pl-12 md:-mb-24 mx-3 items-center">
           <a
-            href="#"
+            href="/"
             className="p-4 text-4xl font-medium dark:text-white text-black"
           >
             Post-in
           </a>
+          <figure>
+            <img src="/images/gradient-logo.png" className="w-12 h-12" alt="" />
+          </figure>
         </div>
         <div className="flex flex-col justify-center px-5 pt-8 my-auto md:justify-start md:pt-0 md:px-10 lg:px-32">
           <p className="text-4xl font-bold dark:text-white">Bienvenue !</p>

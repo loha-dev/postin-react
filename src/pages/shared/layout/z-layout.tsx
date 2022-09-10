@@ -20,11 +20,11 @@ const MainLayout = () => {
         <div className="grid grid-cols-[2fr_7fr] gap-1">
           <Account />
 
-          <div className="m-4 ">
+          <div className="m-4 relative">
             <div className="rounded-xl mb-3">
               <SocialMedia />
             </div>
-            <div className="rounded-xl text-center w-full">
+            <div className="rounded-xl w-full">
               <Outlet />
             </div>
           </div>
