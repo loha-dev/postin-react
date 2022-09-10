@@ -6,5 +6,14 @@ import basicSsl from "@vitejs/plugin-basic-ssl"
 
 export default defineConfig({
   // plugins: [react(), basicSsl(), EnvironmentPlugin(["ANON_KEY", "API_URL"])],
-  plugins: [react(), basicSsl(), EnvironmentPlugin(["ANON_KEY", "API_URL"])],
+  plugins: [
+    react(),
+    basicSsl(),
+    EnvironmentPlugin([
+      "ANON_KEY",
+      "API_URL",
+      "FACEBOOK_APP_ID",
+      "FACEBOOK_APP_SECRET",
+    ]),
+  ],
 })
