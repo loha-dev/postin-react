@@ -92,7 +92,7 @@ const SocialMedia = () => {
     });
   };
   return (
-    <div className="flex p-3 gap-5">
+    <div className="flex p-3 gap-5 ">
       <button className="flex gap-2 items-center" onClick={resetFilter}>
         <span>
           <AiOutlineGlobal className="w-5 h-5" />

@@ -20,16 +20,10 @@ body::-webkit-scrollbar-thumb
 	border: 2px solid #5ca1de;
 	border-radius: 10rem;
 }
-/* .mantine-ScrollArea-scrollbar
-{
-	background-color: #2986d8 !important;
-	border: 3px solid #2986d8;
-}
-*/
+
 .mantine-ScrollArea-scrollbar
 {
-	/* width: 3px !important; */
-
+	width: 10px !important;
 	background-color: transparent;
 } 
 .mantine-ScrollArea-thumb {

@@ -6,6 +6,7 @@ import Facebook from "./pages/shared/facebook/facebook";
 import Planning from "./pages/shared/planning/planning";
 import Dashboard from "./pages/shared/home/dashboard";
 import Feeds from "./pages/shared/feeds/z-feed";
+import { Navigate } from "@tanstack/react-location";
 export const routes = [
   {
     path: "auth",
@@ -25,7 +26,7 @@ export const routes = [
     ],
   },
   {
-    path: "/",
+    path: "",
     element: <MainLayout />,
     children: [
       {
@@ -45,16 +46,32 @@ export const routes = [
         element: <Feeds />,
       },
       {
-        path: "super-admin",
+        path: "create",
       },
       {
-        path: "admin",
+        path: "notifications",
       },
       {
-        path: "client",
+        path: "notes",
       },
       {
-        path: "manager",
+        path: "reception",
+      },
+      {
+        path: "conversation",
+      },
+      {
+        path: "stats",
+      },
+      {
+        path: "comptes",
+      },
+      {
+        path: "team",
+      },
+      {
+        path: "/",
+        element: <Navigate to="/dashboard" />,
       },
     ],
   },
