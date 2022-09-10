@@ -18,12 +18,6 @@ const getUserInfo = () => {
   })
 }
 
-const saveAuthResponse = () =>
-  assign({
-    auth: (context, event: { type: string; response: FacebookAuthResponse }) =>
-      event.response,
-  })
-
 const getLoginStatus = () =>
   FB.getLoginStatus(function (response) {
     console.log(response)
@@ -110,7 +104,15 @@ export const facebookPageImportMachine = createMachine(
     actions: {
       getLoginStatus,
       getUserInfo,
-      saveAuthResponse,
+      saveAuthResponse: assign({
+        // @ts-ignore
+        auth: (
+          context,
+          event: { type: string; response: FacebookAuthResponse }
+        ) => {
+          event.response
+        },
+      }),
       fetchMe: () => {
         FB.api("/me", function (me: any) {
           console.log("me: ", me)
