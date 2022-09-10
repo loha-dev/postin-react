@@ -19,6 +19,13 @@ export type FacebookMe = {
   birthday: string
   age_range: string
   id: string
+  // error:
+}
+
+export type FacebookUserLongLivedToken = {
+  token_type: string
+  access_token: string
+  expires_in: number // in seconds
 }
 
 export type FacebookPage = {
