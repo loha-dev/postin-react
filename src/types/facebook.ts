@@ -36,21 +36,20 @@ export type FacebookPage = {
 export type FacebookPageList = FacebookPage[]
 
 export type FacebookPageTokenRespone = {
-  data: [
-    {
-      access_token: string
-      category: string
-      category_list: [
-        {
-          id: string
-          name: string
-        }
-      ]
-      name: string
-      id: string
-      tasks: string[]
-    }
-  ]
+  data: {
+    access_token: string
+    category: string
+    category_list: [
+      {
+        id: string
+        name: string
+      }
+    ]
+    name: string
+    id: string
+    tasks: string[]
+  }[]
+
   paging: {
     cursors: {
       before: string

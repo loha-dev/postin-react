@@ -4,6 +4,7 @@ import { send } from "xstate/lib/actions"
 import {
   FacebookAuthResponse,
   FacebookMe,
+  FacebookPageTokenRespone,
   FacebookStatusResponse,
   FacebookUserLongLivedToken,
 } from "../types/facebook"
@@ -33,12 +34,43 @@ export const facebookPageImportMachine = createMachine(
         access_token: "",
         expires_in: 0, // in seconds},
       } as FacebookUserLongLivedToken,
+      pages_response: {
+        data: [
+          {
+            access_token: "",
+            category: "",
+            category_list: [
+              {
+                id: "",
+                name: "",
+              },
+            ],
+            name: "",
+            id: "",
+            tasks: [""],
+          },
+        ],
+        paging: {
+          cursors: {
+            before: "",
+            after: "",
+          },
+        },
+      } as FacebookPageTokenRespone,
     },
     states: {
       idle: {
+        initial: "idle",
+        entry: (context, event) => {
+          console.log("context", context, "event", event)
+        },
+        states: {
+          idle: {},
+          no_page: {},
+        },
         on: {
           GOT_RESPONSE: {
-            // target: "select_pages",
+            // target: "page_selection",
             actions: [
               (context, event) => {
                 console.log("on got response")
@@ -196,70 +228,58 @@ export const facebookPageImportMachine = createMachine(
             const data = await fetch(
               `https://graph.facebook.com/${context.graph_api_version}/${context.me.id}/accounts?access_token=${context.long_lived_user_token.access_token}`
             )
-            const response = await data.json()
-            console.log(response)
-
+            const response: { data: FacebookPageTokenRespone } =
+              await data.json()
             return new Promise((resolve, reject) => {
-              // if (!response) reject("no long lived for you")
-              // resolve(response)
+              if (!response) reject("no long pages response for you")
+              if (!response.data.data.length)
+                reject("are you kidding? you ain't have any pages")
+              resolve(response)
             })
           },
           onDone: {
-            target: "select_pages",
+            target: "page_selection",
             actions: [
               (context, event) => {
                 console.log("done getting pages", event)
               },
               assign({
-                long_lived_user_token: (
+                pages_response: (
                   context,
-                  event: { data: { data: FacebookMe } }
+                  event: { data: FacebookPageTokenRespone }
                 ) => event.data,
               }),
             ],
           },
           onError: {
             target: "idle",
-            actions: () => {
-              console.log("error long lived token")
+            actions: (context, event) => {
+              console.log("ain't no page or no right", event)
             },
           },
         },
       },
-      select_pages: {
-        entry: (context, vent) => {
-          console.log("entered select pages state", context)
+      page_selection: {
+        entry: (context, event) => {
+          console.log("entered select pages state", context, event)
         },
         on: {
-          FETCH_ME: {
-            actions: "fetchMe",
-          },
-          SHOW_PAGES: {
-            actions: "showPageList",
-          },
-          PAGE_SELECTED: {
-            target: "pages_selected",
+          PAGES_SELECTED: {
+            target: "saving_pages",
           },
         },
       },
-      pages_selected: {
+      saving_pages: {
         on: {
-          "": {
+          PAGES_SAVED: {
             actions: "importPages",
-            target: "importing",
+            target: "finished",
           },
         },
       },
-      importing: {
-        on: {
-          FINISHED_IMPORT: {
-            target: "pages_tokens",
-          },
-        },
+      finished: {
+        type: "final",
       },
-      pages_tokens: {},
-      tokens_saved: {},
-      canceled: {},
       logged_out: {},
       success: {},
     },
@@ -272,23 +292,14 @@ export const facebookPageImportMachine = createMachine(
           },
         ],
       },
-      LOGGED_IN: {
-        target: "select_pages",
-        actions: [],
-      },
-      CANCELED: {
-        target: "canceled",
-      },
       LOGOUT: {
-        target: "logged_out",
+        target: "idle",
         actions: "logout",
       },
     },
   },
   {
     actions: {
-      showPageList: () => {},
-      // getPagesTokens
       getClientCode: (): { code: string } => {
         // machine_id optional
         fetch(
