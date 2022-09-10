@@ -27,10 +27,9 @@ const saveAuthResponse = () =>
 const getLoginStatus = () =>
   FB.getLoginStatus(function (response) {
     console.log(response)
-
-    if (response.status == "connected") {
-      send("CONNECTED")
-    }
+    if (response.status !== "connected") return
+    console.log("connected")
+    send({ type: "GOT_RESPONSE", response: response.authResponse })
   })
 
 export const facebookPageImportMachine = createMachine(
@@ -49,29 +48,11 @@ export const facebookPageImportMachine = createMachine(
       me: {},
     },
     states: {
-      
-        on: {
-          READY: {
-            actions: "getLoginStatus",
-          },
-          CONNECTED: {
-            target: ".select_pages",
-          },
-          OPEN_LOGIN: {
-            actions: "getUserInfo",
-          },
-          GOT_RESPONSE: {
-            target: ".select_pages",
-            actions: "saveAuthResponse",
-          },
-          CANCELED: {
-            target: "canceled",
-          },
-        },
-        idle:{},
-      
+      idle: {},
       select_pages: {
-        entry: "getLoginStatus",
+        entry: () => {
+          console.log("entered select pages state")
+        },
         on: {
           FETCH_ME: {
             actions: "fetchMe",
@@ -81,10 +62,6 @@ export const facebookPageImportMachine = createMachine(
           },
           PAGE_SELECTED: {
             target: "pages_selected",
-          },
-          LOGOUT: {
-            target: "logged_out",
-            actions: "logout",
           },
         },
       },
@@ -108,6 +85,25 @@ export const facebookPageImportMachine = createMachine(
       canceled: {},
       logged_out: {},
       success: {},
+    },
+    on: {
+      READY: {
+        actions: "getLoginStatus",
+      },
+      OPEN_LOGIN: {
+        actions: "getUserInfo",
+      },
+      GOT_RESPONSE: {
+        target: ".select_pages",
+        actions: "saveAuthResponse",
+      },
+      CANCELED: {
+        target: "canceled",
+      },
+      LOGOUT: {
+        target: "logged_out",
+        actions: "logout",
+      },
     },
   },
   {
