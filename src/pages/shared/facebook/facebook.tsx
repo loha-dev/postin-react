@@ -41,6 +41,17 @@ export default function Facebook() {
       <button onClick={login}>FB Login</button>
       <br />
       <button onClick={logout}>FB logout</button>
+      {current.matches("idle") && <span>Idle</span>}
+      {current.matches("loggin_in") && <span>loggin_in</span>}
+      {current.matches("loading") && <span>loading</span>}
+      {current.matches("get_me") && <span>get_me</span>}
+      {current.matches("get_long_lived_token") && (
+        <span>get_long_lived_token</span>
+      )}
+      {current.matches("get_pages") && <span>get_pages</span>}
+      {current.matches("pages_selection") && <span>pages_selection</span>}
+      {current.matches("saving_pages") && <span>saving_pages</span>}
+      {current.matches("finished") && <span>finished</span>}
     </div>
   )
 }
