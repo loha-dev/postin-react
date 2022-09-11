@@ -228,11 +228,10 @@ export const facebookPageImportMachine = createMachine(
             const data = await fetch(
               `https://graph.facebook.com/${context.graph_api_version}/${context.me.id}/accounts?access_token=${context.long_lived_user_token.access_token}`
             )
-            const response: { data: FacebookPageTokenRespone } =
-              await data.json()
+            const response: FacebookPageTokenRespone = await data.json()
             return new Promise((resolve, reject) => {
               if (!response) reject("no long pages response for you")
-              if (!response.data.data.length)
+              if (!response.data.length)
                 reject("are you kidding? you ain't have any pages")
               resolve(response)
             })
