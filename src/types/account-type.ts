@@ -29,9 +29,9 @@ export type accountsGenericsSearch = MakeGenerics<{
 }>;
 export type activeAccountSearch = MakeGenerics<{
   Search: {
-    activename?: string;
-    activeid?: number;
-    activephone?: string;
+    account_name?: string;
+    account_id?: number;
+    account_phone?: string;
   };
 }>;
 export type accountsUrlSearch = MakeGenerics<{
@@ -77,3 +77,17 @@ export type activePagesType = {
 export type activePageTypeSearch = MakeGenerics<{
   Search: activePagesType;
 }>;
+export type accountAndPageSearch = MakeGenerics<{
+  Search: activePagesType & {
+    account_name?: string;
+    account_id?: number;
+    account_phone?: string;
+  };
+}>;
+
+export type currentFacebookType = {
+  page_id?: string;
+  page_access_token?: string;
+  account_acces_token?: string;
+  account_id?: string;
+};

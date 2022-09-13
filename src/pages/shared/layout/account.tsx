@@ -5,7 +5,6 @@ import { Tabs } from "@mantine/core";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { MdOutlineAirplanemodeActive } from "react-icons/md";
 import { Transition } from "@mantine/core";
-import MenuWithIcon from "./components/menuWithIcon";
 import type {
   accountsGenericsSearch,
   clientsType,
@@ -55,20 +54,21 @@ const Account = () => {
     }
   }, []);
   const [activeTab, setActiveTab] = useState<"accounts" | "active">("accounts");
-  const makeActive = (client: clientsType) => {
+  const makeActive = async (client: clientsType) => {
     setAccount(client);
     setActiveTab("active");
     navigate({
       search: (old) => ({
         ...old,
-        activename: client.name,
-        activeid: client.id,
-        activephone: client.phone,
+        account_name: client.name,
+        account_id: client.id,
+        account_phone: client.phone,
       }),
     });
+    // const accountCredentials = await supabase.from("account").select('*').eq(' ');
   };
   useEffect(() => {
-    if (active !== null || searchActive.activeid === undefined) {
+    if (active !== null || searchActive.account_id === undefined) {
       return;
     } else {
       setActiveTab("active");
@@ -76,7 +76,7 @@ const Account = () => {
         const { data, error } = await supabase
           .from("clients")
           .select("*")
-          .eq("id", searchActive.activeid);
+          .eq("id", searchActive.account_id);
         if (error === null) {
           const dat = data as clientsType[];
           setAccount(dat[0]);

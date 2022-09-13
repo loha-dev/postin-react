@@ -16,13 +16,17 @@ import { TimeInput } from "@mantine/dates";
 import { BsCheck2Circle } from "react-icons/bs";
 import { BsDot } from "react-icons/bs";
 import { Select } from "@mantine/core";
-import { facebookUrl } from "../../../types/facebook";
+import { useSearch } from "@tanstack/react-location";
+import { accountAndPageSearch } from "../../../types/account-type";
+
 const hardCoded = {
   page_id: "110659441785551",
   access_token:
-    "EAAIpLiWs5qIBAPV16vmRmk32uGGMWPnjacdI15aw2bMmiTBiEUa4a2DKSIvJ68XX1sE31DWx6NB4QZBqtuATdEKv6vxQ0oHgamZAoLsVH0UftDqVgjuKeRmgn2TkMwJ4G8HMWCkyEgqgGNWpOFZBrbG0ODWDq0FOzShaBZAzeQE6U65Y4gWVa2QmAmIksdMZD",
+    "EAAIpLiWs5qIBAMuZCWBo7uhZB7tIjhOImorrvEQfMHUTaaJpA2mVhQyoGVgGp49QDZBF75s2xMt6Igtk2ZCKHDOeZBQMVXfXhcFQM0QgZCj4rA6DLSiarMVsj3ahKXXg7dRFmDixuR6pEfHegZBCwNAlDrSUnjugH8NRJjmAiMqxZCyXmBtgzlAPjXzQivZAbcr8ZD",
 };
+
 const CreatePost = (props: Partial<DropzoneProps>) => {
+  const Search = useSearch<accountAndPageSearch>();
   const theme = useMantineTheme();
   const [typeOfPost, setTypeOfPost] = useState<"feed" | "photos" | "videos">(
     "photos"
@@ -35,22 +39,43 @@ const CreatePost = (props: Partial<DropzoneProps>) => {
       description: "",
     },
   });
+
   const handlePublish = async () => {
     if (typeOfPost === "feed") {
       const postUrl = `https://graph.facebook.com/${hardCoded.page_id}/${typeOfPost}?message=${form.values.title}&access_token=${hardCoded.access_token}`;
       const response = await fetch(postUrl, {
         method: "POST",
       });
-      console.log(response);
-    } else {
-      const image = URL.createObjectURL(files[0]);
-      const postUrl = `https://graph.facebook.com/${hardCoded.page_id}/${typeOfPost}?message=${form.values.title}&url=https://images.unsplash.com/photo-1662675120072-bcfb3ceb4460?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60&access_token=${hardCoded.access_token}`;
+      console.log("Feed upladed", response);
+    } else if (typeOfPost === "photos") {
+      const data = new FormData();
+      data.append("image", files[0]);
+      const upload = await fetch(
+        "https://api.imgbb.com/1/upload?expiration=280&key=9bfb7801ff1208f743779277f40f29c7",
+        {
+          method: "POST",
+          body: data,
+        }
+      );
+      const response = await upload.json();
+      if (response.status) {
+        const postUrl = `https://graph.facebook.com/${hardCoded.page_id}/${typeOfPost}?message=${form.values.title}&url=${response.data.url}&access_token=${hardCoded.access_token}`;
+        const res = await fetch(postUrl, {
+          method: "POST",
+        });
+      }
+    } else if (typeOfPost === "videos") {
+      const data = new FormData();
+      data.append("source", files[0]);
+
+      const postUrl = `https://graph.facebook.com/${hardCoded.page_id}/${typeOfPost}?message=${form.values.title}&access_token=${hardCoded.access_token}`;
       const response = await fetch(postUrl, {
         method: "POST",
+        body: data,
       });
-      console.log(response);
     }
   };
+
   return (
     <div className="bg-white rounded-xl p-4">
       <div className="grid grid-cols-[7fr_4fr] gap-12">
@@ -151,8 +176,7 @@ const CreatePost = (props: Partial<DropzoneProps>) => {
             <Dropzone
               onDrop={setFiles}
               onReject={(files) => console.log("rejected files", files)}
-              maxSize={3 * 1024 ** 2}
-              accept={[...IMAGE_MIME_TYPE, MIME_TYPES.webp, MIME_TYPES.mp4]}
+              accept={[MIME_TYPES.mp4, ...IMAGE_MIME_TYPE]}
               {...props}
             >
               <Group
