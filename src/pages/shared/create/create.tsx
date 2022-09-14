@@ -22,7 +22,7 @@ import { accountAndPageSearch } from "../../../types/account-type";
 const hardCoded = {
   page_id: "110659441785551",
   access_token:
-    "EAAIpLiWs5qIBAMuZCWBo7uhZB7tIjhOImorrvEQfMHUTaaJpA2mVhQyoGVgGp49QDZBF75s2xMt6Igtk2ZCKHDOeZBQMVXfXhcFQM0QgZCj4rA6DLSiarMVsj3ahKXXg7dRFmDixuR6pEfHegZBCwNAlDrSUnjugH8NRJjmAiMqxZCyXmBtgzlAPjXzQivZAbcr8ZD",
+    "EAAIpLiWs5qIBAN8ZBMvymMC8gIWs3DaZCObUhFbYOYC23yftZBPZCewuOoUqarA6ZAATlWZA4hWSG6XZAX3rhxlipA0V6fCsmzZBEf9e42n4kCJogYGCvceVEWqxcvLYgOkDoEz36gp526cW5mmuTb9zwVntT83VhlNPLBXg10EEC61ghcLii4WYlZBDNlEt4QMkZD",
 };
 
 const CreatePost = (props: Partial<DropzoneProps>) => {
