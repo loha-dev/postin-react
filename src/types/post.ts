@@ -11,6 +11,7 @@ export type PostType = {
   video: string | null;
   title: string;
 };
+
 export type fullQueryPostType = PostType & {
   page: {
     id: number;

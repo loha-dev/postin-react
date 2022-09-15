@@ -18,14 +18,16 @@ import { BsDot } from "react-icons/bs";
 import { Select } from "@mantine/core";
 import { useSearch } from "@tanstack/react-location";
 import { accountAndPageSearch } from "../../../types/account-type";
-
-const hardCoded = {
-  page_id: "110659441785551",
-  access_token:
-    "EAAIpLiWs5qIBAN8ZBMvymMC8gIWs3DaZCObUhFbYOYC23yftZBPZCewuOoUqarA6ZAATlWZA4hWSG6XZAX3rhxlipA0V6fCsmzZBEf9e42n4kCJogYGCvceVEWqxcvLYgOkDoEz36gp526cW5mmuTb9zwVntT83VhlNPLBXg10EEC61ghcLii4WYlZBDNlEt4QMkZD",
-};
+import { pageCredentialAtom } from "../../../atomic/credentials-atom";
+import { useAtom } from "jotai";
+// const hardCoded = {
+//   page_id: "110659441785551",
+//   access_token:
+//     "EAAIpLiWs5qIBAN8ZBMvymMC8gIWs3DaZCObUhFbYOYC23yftZBPZCewuOoUqarA6ZAATlWZA4hWSG6XZAX3rhxlipA0V6fCsmzZBEf9e42n4kCJogYGCvceVEWqxcvLYgOkDoEz36gp526cW5mmuTb9zwVntT83VhlNPLBXg10EEC61ghcLii4WYlZBDNlEt4QMkZD",
+// };
 
 const CreatePost = (props: Partial<DropzoneProps>) => {
+  const [hardCoded] = useAtom(pageCredentialAtom);
   const Search = useSearch<accountAndPageSearch>();
   const theme = useMantineTheme();
   const [typeOfPost, setTypeOfPost] = useState<"feed" | "photos" | "videos">(
@@ -39,7 +41,7 @@ const CreatePost = (props: Partial<DropzoneProps>) => {
       description: "",
     },
   });
-
+  console.table(hardCoded);
   const handlePublish = async () => {
     if (typeOfPost === "feed") {
       const postUrl = `https://graph.facebook.com/${hardCoded.page_id}/${typeOfPost}?message=${form.values.title}&access_token=${hardCoded.access_token}`;

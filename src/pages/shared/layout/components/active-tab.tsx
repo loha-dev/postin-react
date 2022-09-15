@@ -12,11 +12,11 @@ const ActiveTab = ({ active }: { active: clientsType | null }) => {
         .select(
           `
           id, title, social (id, title, img),
-          owner (id)
+          owner (id), access_token, page_id
           `
         )
         .eq("owner", active?.id);
-      return data as clientsPagesType[];
+      return data as any[];
     },
     { enabled: active?.id !== undefined }
   );
@@ -48,7 +48,7 @@ const ActiveTab = ({ active }: { active: clientsType | null }) => {
         }}
       >
         {activePages?.map((pages) => {
-          const { id, title, social } = pages;
+          const { id, title, social, access_token, page_id } = pages;
           return (
             <SocialShort
               key={id}
@@ -56,6 +56,8 @@ const ActiveTab = ({ active }: { active: clientsType | null }) => {
               title={title}
               social={social}
               active={active}
+              access_token={access_token}
+              page_id={page_id}
             />
           );
         })}

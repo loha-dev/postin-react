@@ -1,20 +1,27 @@
 import { useAtom } from "jotai";
 import { pageAtom } from "../../../../atomic/accounts-atom";
 import { useNavigate } from "@tanstack/react-location";
+import { pageCredentialAtom } from "../../../../atomic/credentials-atom";
 import type {
   clientsType,
   clientsPagesType,
 } from "../../../../types/account-type";
 import { activePageTypeSearch } from "../../../../types/account-type";
 const SocialShort = ({
+  access_token,
+  page_id,
   id,
   title,
   social: { title: social, img, id: socialId },
   active,
-}: clientsPagesType & { active: clientsType | null }) => {
+}: clientsPagesType & { access_token: string; page_id: string } & {
+  active: clientsType | null;
+}) => {
   const navigate = useNavigate<activePageTypeSearch>();
+  const [data, setData] = useAtom(pageCredentialAtom);
   const [page, setPage] = useAtom(pageAtom);
   const handleSetPage = () => {
+    setData({ access_token: access_token, page_id: page_id });
     const page = {
       id: id,
       title: title,
