@@ -6,9 +6,11 @@ import { atom } from "jotai";
 
 export const pageCredentialAtom = atom<{
   access_token: string;
+  category?: string;
   page_id?: string;
 }>({
   access_token: "string",
+  category: "string",
   page_id: "string",
 });
 

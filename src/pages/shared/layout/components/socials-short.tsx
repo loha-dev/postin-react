@@ -14,7 +14,7 @@ const SocialShort = ({
   title,
   social: { title: social, img, id: socialId },
   active,
-}: clientsPagesType & { access_token: string; page_id: string } & {
+}: clientsPagesType & {
   active: clientsType | null;
 }) => {
   const navigate = useNavigate<activePageTypeSearch>();

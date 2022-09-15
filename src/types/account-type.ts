@@ -57,6 +57,8 @@ export type clientsType = {
 export type clientsPagesType = {
   id: number;
   title: string;
+  access_token: string;
+  page_id: string;
   social: {
     id: number;
     title: string;

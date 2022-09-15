@@ -16,7 +16,7 @@ const ActiveTab = ({ active }: { active: clientsType | null }) => {
           `
         )
         .eq("owner", active?.id);
-      return data as any[];
+      return data as clientsPagesType[];
     },
     { enabled: active?.id !== undefined }
   );
