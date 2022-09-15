@@ -14,6 +14,8 @@ export default defineConfig({
       "API_URL",
       "FACEBOOK_APP_ID",
       "FACEBOOK_APP_SECRET",
+      "LINKEDIN_CLIENT_ID",
+      "LINKEDIN_CLIENT_SECRET",
     ]),
   ],
 })
