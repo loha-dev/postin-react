@@ -16,19 +16,12 @@ import { TimeInput } from "@mantine/dates";
 import { BsCheck2Circle } from "react-icons/bs";
 import { BsDot } from "react-icons/bs";
 import { Select } from "@mantine/core";
-import { useSearch } from "@tanstack/react-location";
-import { accountAndPageSearch } from "../../../types/account-type";
 import { pageCredentialAtom } from "../../../atomic/credentials-atom";
 import { useAtom } from "jotai";
-// const hardCoded = {
-//   page_id: "110659441785551",
-//   access_token:
-//     "EAAIpLiWs5qIBAN8ZBMvymMC8gIWs3DaZCObUhFbYOYC23yftZBPZCewuOoUqarA6ZAATlWZA4hWSG6XZAX3rhxlipA0V6fCsmzZBEf9e42n4kCJogYGCvceVEWqxcvLYgOkDoEz36gp526cW5mmuTb9zwVntT83VhlNPLBXg10EEC61ghcLii4WYlZBDNlEt4QMkZD",
-// };
+import { showNotification, updateNotification } from "@mantine/notifications";
 
 const CreatePost = (props: Partial<DropzoneProps>) => {
   const [hardCoded] = useAtom(pageCredentialAtom);
-  const Search = useSearch<accountAndPageSearch>();
   const theme = useMantineTheme();
   const [typeOfPost, setTypeOfPost] = useState<"feed" | "photos" | "videos">(
     "photos"
@@ -41,14 +34,41 @@ const CreatePost = (props: Partial<DropzoneProps>) => {
       description: "",
     },
   });
-  console.table(hardCoded);
   const handlePublish = async () => {
+    showNotification({
+      id: "uploading",
+      loading: true,
+      title: "Uploading your posts",
+      message: "Depending on the type of upload it may take longer",
+      autoClose: false,
+      disallowClose: true,
+    });
     if (typeOfPost === "feed") {
       const postUrl = `https://graph.facebook.com/${hardCoded.page_id}/${typeOfPost}?message=${form.values.title}&access_token=${hardCoded.access_token}`;
       const response = await fetch(postUrl, {
         method: "POST",
       });
-      console.log("Feed upladed", response);
+      const res = await response.json();
+      if (!response.ok) {
+        updateNotification({
+          id: "uploading",
+          loading: false,
+          title: "Post uploaded",
+          message: "You post was uploaded",
+          autoClose: 2000,
+          color: "red",
+        });
+      } else {
+        console.log("i am here");
+        updateNotification({
+          id: "uploading",
+          loading: false,
+          title: "Post uploaded",
+          message: "You post was uploaded",
+          autoClose: 2000,
+          color: "green",
+        });
+      }
     } else if (typeOfPost === "photos") {
       const data = new FormData();
       data.append("image", files[0]);
@@ -65,6 +85,27 @@ const CreatePost = (props: Partial<DropzoneProps>) => {
         const res = await fetch(postUrl, {
           method: "POST",
         });
+        const ress = await response.json();
+        if (!res.ok) {
+          updateNotification({
+            id: "uploading",
+            loading: false,
+            title: "Post uploaded",
+            message: "You post was uploaded",
+            autoClose: 2000,
+            color: "red",
+          });
+        } else {
+          console.log("i am here");
+          updateNotification({
+            id: "uploading",
+            loading: false,
+            title: "Post uploaded",
+            message: "You post was uploaded",
+            autoClose: 2000,
+            color: "green",
+          });
+        }
       }
     } else if (typeOfPost === "videos") {
       const data = new FormData();
@@ -75,6 +116,27 @@ const CreatePost = (props: Partial<DropzoneProps>) => {
         method: "POST",
         body: data,
       });
+      const res = await response.json();
+      if (!response.ok) {
+        updateNotification({
+          id: "uploading",
+          loading: false,
+          title: "Post uploaded",
+          message: "You post was uploaded",
+          autoClose: 2000,
+          color: "red",
+        });
+      } else {
+        console.log("i am here");
+        updateNotification({
+          id: "uploading",
+          loading: false,
+          title: "Post uploaded",
+          message: "You post was uploaded",
+          autoClose: 2000,
+          color: "green",
+        });
+      }
     }
   };
 
