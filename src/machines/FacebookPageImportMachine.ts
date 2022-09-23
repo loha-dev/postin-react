@@ -86,6 +86,7 @@ export const facebookPageImportMachine = createMachine(
         },
       },
       logging_in: {
+        // @ts-ignore
         invoke: {
           id: "logging_in",
           src: (context, event) => () => {
@@ -119,6 +120,7 @@ export const facebookPageImportMachine = createMachine(
         },
       },
       loading: {
+        // @ts-ignore
         invoke: {
           id: "getUserToken",
           src: (context, event) => () => {
@@ -153,6 +155,7 @@ export const facebookPageImportMachine = createMachine(
         },
       },
       get_me: {
+        // @ts-ignore
         invoke: {
           id: "get_me",
           src: (context, event) => () => {
@@ -184,6 +187,7 @@ export const facebookPageImportMachine = createMachine(
         },
       },
       get_long_lived_token: {
+        // @ts-ignore
         invoke: {
           id: "get_long_lived_token",
           src: (context, event) => async () => {
@@ -251,6 +255,7 @@ export const facebookPageImportMachine = createMachine(
         entry: (context, vent) => {
           console.log("entered get pages state", context)
         },
+        // @ts-ignore
         invoke: {
           id: "get_pages",
           src: (context, event) => async () => {
