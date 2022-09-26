@@ -16,8 +16,6 @@ export const facebookPageImportMachine = createMachine(
     context: {
       graph_api_version: "v14.0",
       facebook_app_id: process.env.FACEBOOK_APP_ID,
-      // WE SHOULD use the app secret from the front-end
-      facebook_app_secret: process.env.FACEBOOK_APP_SECRET,
       auth: {
         accessToken: "",
         data_access_expiration_time: 0,
@@ -193,8 +191,10 @@ export const facebookPageImportMachine = createMachine(
           id: "get_long_lived_token",
           src: (context, event) => async () => {
             const data = await fetch(
-              `https://graph.facebook.com/${context.graph_api_version}/oauth/access_token?grant_type=fb_exchange_token&client_id=${context.facebook_app_id}&client_secret=${context.facebook_app_secret}&fb_exchange_token=${context.auth.accessToken}`
+              `${process.env.SERVER}/facebook?accessToken=${context.auth.accessToken}`
             )
+            console.log("data from server", data)
+
             const response = await data.json()
             return new Promise((resolve, reject) => {
               if (!response) reject("no long lived for you")
