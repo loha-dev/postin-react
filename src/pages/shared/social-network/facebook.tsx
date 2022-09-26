@@ -5,6 +5,7 @@ import { useAtom } from "jotai"
 import { facebookPageImportMachine } from "../../../machines/FacebookPageImportMachine"
 import { useMachine } from "@xstate/react"
 import { atomWithMachine } from "jotai/xstate"
+import { Button } from "@mantine/core"
 
 const options = {
   appId: process.env.FACEBOOK_APP_ID,
@@ -36,11 +37,27 @@ export default function Facebook() {
   const logout = () => {
     send("LOGOUT")
   }
+
+  const facebookOauth = () => {
+    const state = "{st=appstate,ds=iugiug68768}"
+    const login = window.open(
+      `https://www.facebook.com/v15.0/dialog/oauth?client_id=${process.env.FACEBOOK_APP_ID}&redirect_uri=${process.env.REDIRECT_URI}&state=${state}`,
+      "example",
+      "width=600,height=400"
+    )
+    // fetch(
+    //   `https://www.facebook.com/v15.0/dialog/oauth?client_id=${process.env.FACEBOOK_APP_ID}&redirect_uri=${process.env.REDIRECT_URI}&state=${state}`
+    // )
+  }
   return (
     <div>
-      <button onClick={login}>FB Login</button>
+      <Button className="m-1" variant="outline" onClick={login}>
+        FB Login
+      </Button>
       <br />
-      <button onClick={logout}>FB logout</button>
+      <Button className="m-1" variant="outline" onClick={logout}>
+        FB logout
+      </Button>
       {current.matches("idle") && <span>Idle</span>}
       {current.matches("loggin_in") && <span>loggin_in</span>}
       {current.matches("loading") && <span>loading</span>}

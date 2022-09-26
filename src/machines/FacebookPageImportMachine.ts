@@ -16,6 +16,7 @@ export const facebookPageImportMachine = createMachine(
     context: {
       graph_api_version: "v14.0",
       facebook_app_id: process.env.FACEBOOK_APP_ID,
+      // WE SHOULD use the app secret from the front-end
       facebook_app_secret: process.env.FACEBOOK_APP_SECRET,
       auth: {
         accessToken: "",
