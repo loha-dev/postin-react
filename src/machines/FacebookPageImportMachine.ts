@@ -103,7 +103,7 @@ export const facebookPageImportMachine = createMachine(
           },
         },
       } as FacebookPageTokenRespone,
-    },
+    } as FacebookMachineContext,
     states: {
       idle: {
         initial: "idle",
