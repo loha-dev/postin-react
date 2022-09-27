@@ -1,4 +1,3 @@
-import { type } from "os"
 import { actions, assign, createMachine } from "xstate"
 import { send } from "xstate/lib/actions"
 import {
