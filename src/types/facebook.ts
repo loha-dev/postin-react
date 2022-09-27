@@ -8,7 +8,7 @@ export type FacebookAuthResponse = {
 }
 
 export type FacebookMachineContext = {
-  graph_api_version: "v14.0"
+  graph_api_version: "v15.0"
   facebook_app_id: string
   auth: FacebookAuthResponse
   me: FacebookMe
