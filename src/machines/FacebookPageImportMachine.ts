@@ -2,12 +2,60 @@ import { actions, assign, createMachine } from "xstate"
 import { send } from "xstate/lib/actions"
 import {
   FacebookAuthResponse,
+  FacebookMachineContext,
   FacebookMe,
   FacebookPageTokenRespone,
   FacebookStatusResponse,
   FacebookUserLongLivedToken,
 } from "../types/facebook"
 import { FacebookService } from "../functions/services/FacebookService"
+
+// getLongLived user token from server
+export const getLongLivedToken =
+  (context: FacebookMachineContext) => async () => {
+    const data = await fetch(
+      `${process.env.SERVER}/facebook?accessToken=${context.auth.accessToken}`
+    )
+    console.log("data from server", data)
+
+    const response = await data.json()
+    return new Promise((resolve, reject) => {
+      if (!response) reject("no long lived for you")
+      resolve(response)
+    })
+  }
+
+export const getUserToken = () => () => {
+  return new Promise((resolve, reject) => {
+    FB.getLoginStatus(function (response) {
+      console.log(response)
+      if (response.status !== "connected") reject(response)
+      resolve(response)
+    })
+  })
+}
+
+export const getMe = () => () => {
+  return new Promise((resolve, reject) => {
+    FB.api("/me", function (response: FacebookMe) {
+      if (!response) reject("no name in response")
+      resolve(response)
+    })
+  })
+}
+
+const getPages = (context: FacebookMachineContext) => async () => {
+  const data = await fetch(
+    `https://graph.facebook.com/${context.graph_api_version}/${context.me.id}/accounts?access_token=${context.long_lived_user_token.access_token}`
+  )
+  const response: FacebookPageTokenRespone = await data.json()
+  return new Promise((resolve, reject) => {
+    if (!response) reject("no long pages response for you")
+    if (!response.data.length)
+      reject("are you kidding? you ain't have any pages")
+    resolve(response)
+  })
+}
 export const facebookPageImportMachine = createMachine(
   {
     id: "facebook_import_pages",
@@ -77,17 +125,18 @@ export const facebookPageImportMachine = createMachine(
               "saveAuthResponse",
             ],
           },
-
-          OPEN_LOGIN: {
-            target: "logging_in",
-          },
+        },
+      },
+      error: {
+        entry: (context, event) => {
+          console.log("entering error, context:", context, "event:", event)
         },
       },
       logging_in: {
         // @ts-ignore
         invoke: {
           id: "logging_in",
-          src: (context, event) => () => {
+          src: () => () => {
             return new Promise((resolve, reject) => {
               FB.login(function (response) {
                 if (response.status !== "connected") reject(response)
@@ -110,7 +159,7 @@ export const facebookPageImportMachine = createMachine(
             ],
           },
           onError: {
-            target: "idle",
+            target: "error",
             actions: () => {
               console.log("error getting logging in")
             },
@@ -121,15 +170,7 @@ export const facebookPageImportMachine = createMachine(
         // @ts-ignore
         invoke: {
           id: "getUserToken",
-          src: (context, event) => () => {
-            return new Promise((resolve, reject) => {
-              FB.getLoginStatus(function (response) {
-                console.log(response)
-                if (response.status !== "connected") reject(response)
-                resolve(response)
-              })
-            })
-          },
+          src: getUserToken,
           onDone: {
             target: "get_me",
             actions: [
@@ -156,14 +197,7 @@ export const facebookPageImportMachine = createMachine(
         // @ts-ignore
         invoke: {
           id: "get_me",
-          src: (context, event) => () => {
-            return new Promise((resolve, reject) => {
-              FB.api("/me", function (response: FacebookMe) {
-                if (!response) reject("no name in response")
-                resolve(response)
-              })
-            })
-          },
+          src: getMe,
           onDone: {
             target: "get_long_lived_token",
             actions: [
@@ -188,18 +222,7 @@ export const facebookPageImportMachine = createMachine(
         // @ts-ignore
         invoke: {
           id: "get_long_lived_token",
-          src: (context, event) => async () => {
-            const data = await fetch(
-              `${process.env.SERVER}/facebook?accessToken=${context.auth.accessToken}`
-            )
-            console.log("data from server", data)
-
-            const response = await data.json()
-            return new Promise((resolve, reject) => {
-              if (!response) reject("no long lived for you")
-              resolve(response)
-            })
-          },
+          src: getLongLivedToken,
           onDone: {
             target: "get_pages",
             actions: [
@@ -229,18 +252,7 @@ export const facebookPageImportMachine = createMachine(
         // @ts-ignore
         invoke: {
           id: "get_pages",
-          src: (context, event) => async () => {
-            const data = await fetch(
-              `https://graph.facebook.com/${context.graph_api_version}/${context.me.id}/accounts?access_token=${context.long_lived_user_token.access_token}`
-            )
-            const response: FacebookPageTokenRespone = await data.json()
-            return new Promise((resolve, reject) => {
-              if (!response) reject("no long pages response for you")
-              if (!response.data.length)
-                reject("are you kidding? you ain't have any pages")
-              resolve(response)
-            })
-          },
+          src: getPages,
           onDone: {
             target: "save_update_pages",
             actions: [
@@ -274,7 +286,7 @@ export const facebookPageImportMachine = createMachine(
             })
           },
           onDone: {
-            target: "page_selection",
+            target: "finished",
             actions: [
               (context, event) => {
                 console.log("done saving/updating pages", event)
@@ -289,24 +301,6 @@ export const facebookPageImportMachine = createMachine(
           },
         },
       },
-      page_selection: {
-        entry: (context, event) => {
-          console.log("entered select pages state", context, event)
-        },
-        on: {
-          PAGES_SELECTED: {
-            target: "saving_pages",
-          },
-        },
-      },
-      saving_pages: {
-        on: {
-          PAGES_SAVED: {
-            actions: "importPages",
-            target: "finished",
-          },
-        },
-      },
       finished: {
         type: "final",
       },
@@ -318,13 +312,17 @@ export const facebookPageImportMachine = createMachine(
         target: "loading",
         actions: [
           (context, event) => {
-            console.log(context, event)
+            console.log("ready", context, event)
           },
         ],
       },
       LOGOUT: {
         target: "idle",
         actions: "logout",
+      },
+
+      OPEN_LOGIN: {
+        target: "logging_in",
       },
     },
   },
