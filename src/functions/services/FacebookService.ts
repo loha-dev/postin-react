@@ -39,7 +39,7 @@ export class FacebookService {
     for (let page of pages) {
       const { access_token, id, category } = page;
       const { data: update } = await supabase
-        .from("clients-pages")
+        .from("page")
         .update({
           access_token: access_token,
           category: category,

@@ -202,7 +202,7 @@ export const facebookPageImportMachine = createMachine(
             })
           },
           onDone: {
-            target: "save_update_user",
+            target: "get_pages",
             actions: [
               (context, event) => {
                 console.log("done long lived token", event)
@@ -219,35 +219,6 @@ export const facebookPageImportMachine = createMachine(
             target: "idle",
             actions: () => {
               console.log("error long lived token")
-            },
-          },
-        },
-      },
-      save_update_user: {
-        invoke: {
-          id: "save_update_user",
-          src: (context, event) => () => {
-            return new Promise((resolve, reject) => {
-              const saveUser = FacebookService.saveUser({
-                ...context.long_lived_user_token,
-                ...context.me,
-              })
-              if (!saveUser) reject("no name in response")
-              resolve(saveUser)
-            })
-          },
-          onDone: {
-            target: "get_pages",
-            actions: [
-              (context, event) => {
-                console.log("done saving/updating user", event)
-              },
-            ],
-          },
-          onError: {
-            target: "idle",
-            actions: () => {
-              console.log("error saving user")
             },
           },
         },
@@ -298,9 +269,7 @@ export const facebookPageImportMachine = createMachine(
           id: "save_update_pages",
           src: (context, event) => () => {
             return new Promise((resolve, reject) => {
-              const savePages = FacebookService.saveUpdatePages(
-                context.pages_response
-              )
+              const savePages = FacebookService.saveUpdatePages(context)
               if (!savePages) reject("no name in response")
               resolve(savePages)
             })

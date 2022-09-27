@@ -1,25 +1,25 @@
-import { ScrollArea } from "@mantine/core";
-import { useQuery } from "@tanstack/react-query";
-import { clientsPagesType, clientsType } from "../../../../types/account-type";
-import { supabase } from "../../../../utils/supabase";
-import SocialShort from "./socials-short";
+import { ScrollArea } from "@mantine/core"
+import { useQuery } from "@tanstack/react-query"
+import { clientsPagesType, clientsType } from "../../../../types/account-type"
+import { supabase } from "../../../../utils/supabase"
+import SocialShort from "./socials-short"
 const ActiveTab = ({ active }: { active: clientsType | null }) => {
   const { data: activePages } = useQuery(
     ["clients-pages", active?.id],
     async () => {
       const { data } = await supabase
-        .from("clients-pages")
+        .from("page")
         .select(
           `
           id, title, social (id, title, img),
           owner (id), access_token, page_id
           `
         )
-        .eq("owner", active?.id);
-      return data as clientsPagesType[];
+        .eq("owner", active?.id)
+      return data as clientsPagesType[]
     },
     { enabled: active?.id !== undefined }
-  );
+  )
   return (
     <>
       <div className="flex items-center">
@@ -48,7 +48,7 @@ const ActiveTab = ({ active }: { active: clientsType | null }) => {
         }}
       >
         {activePages?.map((pages) => {
-          const { id, title, social, access_token, page_id } = pages;
+          const { id, title, social, access_token, page_id } = pages
           return (
             <SocialShort
               key={id}
@@ -59,10 +59,10 @@ const ActiveTab = ({ active }: { active: clientsType | null }) => {
               access_token={access_token}
               page_id={page_id}
             />
-          );
+          )
         })}
       </ScrollArea>
     </>
-  );
-};
-export default ActiveTab;
+  )
+}
+export default ActiveTab
