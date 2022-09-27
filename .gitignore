@@ -25,5 +25,3 @@ dist-ssr
 # local env files
 .env
 .env*.local
-yarn.lock
-vite.config.ts

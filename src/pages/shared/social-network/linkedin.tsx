@@ -2,7 +2,6 @@ import React, { useState } from "react"
 
 import { useLinkedIn } from "react-linkedin-login-oauth2"
 // You can use provided image shipped by this package or using your own
-import linkedin from "react-linkedin-login-oauth2/assets/linkedin.png"
 
 export default function Linkedin() {
   const { linkedInLogin } = useLinkedIn({
@@ -19,7 +18,7 @@ export default function Linkedin() {
     <div>
       <img
         onClick={linkedInLogin}
-        src={linkedin}
+        src="/images/connect-linkedin.png"
         alt="Sign in with Linked In"
         style={{ maxWidth: "180px", cursor: "pointer" }}
       />
