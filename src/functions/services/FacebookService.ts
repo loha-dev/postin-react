@@ -26,6 +26,10 @@ export class FacebookService {
           return {
             page_id: page.id,
             access_token: page.access_token,
+            title: page.name,
+            social: 1,
+            category: page.category,
+            account: newUser !== null ? newUser[0].id : 1,
           };
         })
       );
@@ -40,21 +44,17 @@ export class FacebookService {
         })
         .eq("user_id", info.me.id);
       console.log("update user", updateUser);
-    }
-    /*
-    const pages = info.pages_response.data;
+      const pages = info.pages_response.data;
 
-    for (let page of pages) {
-      const { access_token, id, category } = page;
-      const { data: update } = await supabase
-        .from("page")
-        .update({
-          access_token: access_token,
-          category: category,
-        })
-        .eq("page_id", id);
-      console.log("update response ", update);
+      pages.forEach(async (page) => {
+        const { data: update } = await supabase
+          .from("page")
+          .update({
+            access_token: page.access_token,
+          })
+          .eq("page_id", page.id);
+        console.log(update);
+      });
     }
-    */
   }
 }
