@@ -60,7 +60,7 @@ export const facebookPageImportMachine = createMachine(
     id: "facebook_import_pages",
     initial: "idle",
     context: {
-      graph_api_version: "v14.0",
+      graph_api_version: "v15.0",
       facebook_app_id: process.env.FACEBOOK_APP_ID,
       auth: {
         accessToken: "",
@@ -102,7 +102,7 @@ export const facebookPageImportMachine = createMachine(
           },
         },
       } as FacebookPageTokenRespone,
-    },
+    } as FacebookMachineContext,
     states: {
       idle: {
         initial: "idle",
