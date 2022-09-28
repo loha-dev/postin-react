@@ -1,25 +1,8 @@
-// export type FacebookAuthResponse = {
-//   accessToken: string
-//   data_access_expiration_time: number
-//   expiresIn: number
-//   userID: string
-//   graphDomain: "facebook"
-//   signedRequest: string
-// }
-
-// export type FacebookMachineContext = {
-//   graph_api_version: "v15.0"
-//   facebook_app_id: string
-//   auth: FacebookAuthResponse
-//   me: FacebookMe
-//   long_lived_user_token: FacebookUserLongLivedToken
-//   pages_response: FacebookPageTokenRespone
-// }
-
-// export type FacebookStatusResponse = {
-//   authResponse: FacebookAuthResponse
-//   status: string
-// }
+export type FacebookContext = {
+  auth: FacebookLoginResponse
+  me: FacebookMe
+  pages: FacebookPageTokenRespone
+}
 
 export type FacebookMe = {
   name: string

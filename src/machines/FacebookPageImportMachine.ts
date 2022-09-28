@@ -2,7 +2,7 @@ import { actions, assign, createMachine } from "xstate"
 import { send } from "xstate/lib/actions"
 import {
   FacebookAuthResponse,
-  FacebookMachineContext,
+  FacebookContext,
   FacebookMe,
   FacebookPageTokenRespone,
   FacebookStatusResponse,
@@ -10,7 +10,7 @@ import {
 } from "../types/facebook"
 import { FacebookService } from "../functions/services/FacebookService"
 
-const getPages = (context: FacebookMachineContext) => async () => {
+const getPages = (context: FacebookContext) => async () => {
   const data = await fetch(
     `https://graph.facebook.com/${context.graph_api_version}/${context.me.id}/accounts?access_token=${context.long_lived_user_token.access_token}`
   )
@@ -69,7 +69,7 @@ export const facebookPageImportMachine = createMachine(
           },
         },
       } as FacebookPageTokenRespone,
-    } as FacebookMachineContext,
+    } as FacebookContext,
     states: {
       idle: {
         initial: "idle",
