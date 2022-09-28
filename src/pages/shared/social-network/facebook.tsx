@@ -102,7 +102,7 @@ export default function Facebook() {
   // when pages aquired
   useEffect(() => {
     if (!pages.data.length) return console.log("no page", pages.data)
-    // save all the data
+    // save page data
     FacebookService.saveUpdatePages({
       auth: auth,
       me: me,
