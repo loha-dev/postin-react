@@ -13,6 +13,7 @@ export default defineConfig({
       "ANON_KEY",
       "API_URL",
       "FACEBOOK_APP_ID",
+      "GRAPH_API_VERSION",
       "SERVER",
       "LINKEDIN_CLIENT_ID",
       "LINKEDIN_CLIENT_SECRET",

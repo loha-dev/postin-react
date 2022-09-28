@@ -1,36 +1,44 @@
-export type FacebookAuthResponse = {
-  accessToken: string
-  data_access_expiration_time: number
-  expiresIn: number
-  userID: string
-  graphDomain: "facebook"
-  signedRequest: string
-}
+// export type FacebookAuthResponse = {
+//   accessToken: string
+//   data_access_expiration_time: number
+//   expiresIn: number
+//   userID: string
+//   graphDomain: "facebook"
+//   signedRequest: string
+// }
 
-export type FacebookMachineContext = {
-  graph_api_version: "v15.0"
-  facebook_app_id: string
-  auth: FacebookAuthResponse
-  me: FacebookMe
-  long_lived_user_token: FacebookUserLongLivedToken
-  pages_response: FacebookPageTokenRespone
-}
+// export type FacebookMachineContext = {
+//   graph_api_version: "v15.0"
+//   facebook_app_id: string
+//   auth: FacebookAuthResponse
+//   me: FacebookMe
+//   long_lived_user_token: FacebookUserLongLivedToken
+//   pages_response: FacebookPageTokenRespone
+// }
 
-export type FacebookStatusResponse = {
-  authResponse: FacebookAuthResponse
-  status: string
-}
+// export type FacebookStatusResponse = {
+//   authResponse: FacebookAuthResponse
+//   status: string
+// }
 
 export type FacebookMe = {
   name: string
-  about: string
-  email: string
-  birthday: string
-  age_range: string
+  about?: string
+  email?: string
+  birthday?: string
+  age_range?: string
   id: string
   // error:
 }
 
+export type FacebookLoginResponse = {
+  access_token: string
+  token_type: string
+  expires_in: number
+  error?: {
+    code: number
+  }
+}
 export type FacebookUserLongLivedToken = {
   token_type: string
   access_token: string
