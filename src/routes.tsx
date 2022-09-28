@@ -1,14 +1,15 @@
-import SignIn from "./pages/shared/auth/sign-in"
-import SignUp from "./pages/shared/auth/sign-up"
-import ForgotPassword from "./pages/shared/auth/forgot-password"
-import MainLayout from "./pages/shared/layout/z-layout"
-import Facebook from "./pages/shared/social-network/facebook"
-import Planning from "./pages/shared/planning/planning"
-import Dashboard from "./pages/shared/home/dashboard"
-import Feeds from "./pages/shared/feeds/z-feed"
-import { Navigate } from "@tanstack/react-location"
-import Create from "./pages/shared/create/create"
-import Linkedin from "./pages/shared/social-network/linkedin"
+import SignIn from "./pages/shared/auth/sign-in";
+import SignUp from "./pages/shared/auth/sign-up";
+import ForgotPassword from "./pages/shared/auth/forgot-password";
+import MainLayout from "./pages/shared/layout/z-layout";
+import Facebook from "./pages/shared/social-network/facebook";
+import Planning from "./pages/shared/planning/planning";
+import Dashboard from "./pages/shared/home/dashboard";
+import Feeds from "./pages/shared/feeds/z-feed";
+import { Navigate } from "@tanstack/react-location";
+import Create from "./pages/shared/create/create";
+import Linkedin from "./pages/shared/social-network/linkedin";
+import Tasks from "./pages/shared/tasks/tasks";
 export const routes = [
   {
     path: "auth",
@@ -61,6 +62,10 @@ export const routes = [
         element: <Create />,
       },
       {
+        path: "tasks",
+        element: <Tasks />,
+      },
+      {
         path: "notifications",
       },
       {
@@ -87,4 +92,4 @@ export const routes = [
       },
     ],
   },
-]
+];
