@@ -1,32 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&display=swap');
-@import url('http://fonts.cdnfonts.com/css/satoshi');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&display=swap");
+@import url("https://fonts.cdnfonts.com/css/satoshi");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-    font-family: 'Satoshi', 'Nunito', sans-serif;
+  font-family: "Satoshi", "Nunito", sans-serif;
 }
-body::-webkit-scrollbar
-{
-	width: 4px;
-	background-color: #F5F5F5;
-	height: 4px;
-}
-
-body::-webkit-scrollbar-thumb
-{
-	background-color: #5297d3;
-	border: 2px solid #5ca1de;
-	border-radius: 10rem;
+body::-webkit-scrollbar {
+  width: 4px;
+  background-color: #f5f5f5;
+  height: 4px;
 }
 
-.mantine-ScrollArea-scrollbar
-{
-	width: 10px !important;
-	background-color: transparent;
-} 
+body::-webkit-scrollbar-thumb {
+  background-color: #5297d3;
+  border: 2px solid #5ca1de;
+  border-radius: 10rem;
+}
+
+.mantine-ScrollArea-scrollbar {
+  width: 10px !important;
+  background-color: transparent;
+}
 .mantine-ScrollArea-thumb {
-	background-color: #4889c2 !important;
-
+  background-color: #4889c2 !important;
 }

@@ -23,7 +23,6 @@ export const getClientToken = async (clientCode: string) => {
     `https://graph.facebook.com/${process.env.GRAPH_API_VERSION}/oauth/access_token?code=${clientCode}&client_id=${process.env.FACEBOOK_APP_ID}&redirect_uri=${process.env.FACEBOOK_REDIRECT_URI}` // &machine_id={your-client-machine-id}
   )
   const clientTokenResponse: ClientToken = await clientTokenFetch.json()
-  console.log("client token ", clientTokenResponse)
 
   return clientTokenResponse
 }
@@ -34,7 +33,6 @@ export const login = async (code: string) => {
     `${process.env.SERVER}/facebook/login?code=${code}`
   )
   const responseData: FacebookLoginResponse = await response.json()
-  console.log("login response", responseData)
 
   return responseData
 }
@@ -62,6 +60,18 @@ export const addFacebookAccount = async (code: string) => {
   const clientToken = await getClientToken(clientCode.code)
   const pages = await getPages(me.id, clientToken.access_token)
 
+  // console.log(pages)
+}
+
+// triggered at page selection
+export const getDeviceClientToken = async (longLivedAccessToken: string) => {
+  // for each device
+
+  const me = await getMe(longLivedAccessToken)
+  const clientCode = await getClientCode(longLivedAccessToken)
+  const clientToken = await getClientToken(clientCode.code)
+  const pages = await getPages(me.id, clientToken.access_token)
+
   console.log(pages)
 }
 
@@ -71,7 +81,7 @@ export const getPages = async (userId: string, clientToken: string) => {
     `https://graph.facebook.com/${process.env.GRAPH_API_VERSION}/${userId}/accounts?access_token=${clientToken}`
   )
   const pages: FacebookPageTokenRespone = await data.json()
-  console.log("pages ", pages)
+  // console.log("pages ", pages)
   return pages
 }
 
