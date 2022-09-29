@@ -4,6 +4,16 @@ export type FacebookContext = {
   pages: FacebookPageTokenRespone
 }
 
+export type CodeResponse = {
+  code: string
+}
+
+export type ClientToken = {
+  access_token: string
+  machine_id: string
+  exprires_in: number
+}
+
 export type FacebookMe = {
   name: string
   about?: string
