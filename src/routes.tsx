@@ -9,7 +9,7 @@ import Feeds from "./pages/shared/feeds/z-feed";
 import { Navigate } from "@tanstack/react-location";
 import Create from "./pages/shared/create/create";
 import Linkedin from "./pages/shared/social-network/linkedin";
-import Tasks from "./pages/shared/tasks/tasks";
+import Tasks from './pages/shared/Tasks/App'
 export const routes = [
   {
     path: "auth",
