@@ -2,7 +2,6 @@ import Tasks from "./App";
 import { Button } from "@mantine/core";
 import { useState } from "react";
 import Add from "./Add";
-import React from "react";
 function App() {
   const [open, setOpened] = useState(false);
   return (
