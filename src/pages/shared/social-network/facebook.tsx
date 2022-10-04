@@ -3,9 +3,11 @@ import { useSearch } from "@tanstack/react-location"
 import { MakeGenerics } from "@tanstack/react-location"
 import { useEffect, useState } from "react"
 import {
+  addFacebookAccount,
   FacebookService,
   getMe,
   getPages,
+  login,
 } from "../../../functions/services/FacebookService"
 import {
   FacebookContext,
@@ -23,92 +25,15 @@ export default function Facebook() {
 
   let [loggedIn, setLoggedIn] = useState(false)
 
-  let [auth, setAuth] = useState<FacebookLoginResponse>({
-    access_token: "",
-    expires_in: 0,
-    token_type: "",
-  })
-
-  let [me, setMe] = useState<FacebookMe>({
-    name: "",
-    id: "",
-  })
-
-  let [pages, setPages] = useState<FacebookPageTokenRespone>({
-    data: [
-      {
-        access_token: "",
-        category: "",
-        category_list: [
-          {
-            id: "",
-            name: "",
-          },
-        ],
-        name: "",
-        id: "",
-        tasks: [""],
-      },
-    ],
-    paging: {
-      cursors: {
-        before: "",
-        after: "",
-      },
-    },
-  })
-
   useEffect(() => {
-    // Login if code present,
-    // 1- Facebook Dialog Oauth
-    // 2- Server receives code and get access token + long lived access token
-    if (!params.code) return
-    if (loggedIn) return console.log("already used code")
     setLoggedIn(true)
     ;(async () => {
-      const response = await fetch(
-        `${process.env.SERVER}/facebook/login?code=${params.code}`
-      )
-      const auth: FacebookLoginResponse = await response.json()
-      if (auth.error) {
-        // clearParams()
-        return console.log("Hummm, 🤔", auth.error)
-      } // add error notification
-
-      // on success Save / Update
-      setAuth(auth)
+      if (!params.code) return console.log("no code")
+      if (loggedIn) return console.log("already used code")
+      setLoggedIn(true)
+      addFacebookAccount(params.code)
     })()
   }, [params.code])
-
-  // when auth aquired
-  useEffect(() => {
-    if (!auth.expires_in) return
-    ;(async () => {
-      const meResponse = await getMe(auth.access_token)
-      setMe(meResponse)
-    })()
-  }, [auth])
-
-  // when me aquired
-  useEffect(() => {
-    if (!me.id.length) return
-    ;(async () => {
-      const pagesResponse = await getPages(me.id, auth.access_token)
-      setPages(pagesResponse)
-      console.log(pagesResponse)
-    })()
-  }, [me])
-
-  // when pages aquired
-  useEffect(() => {
-    if (!pages.data.length) return console.log("no page", pages.data)
-    // save page data
-    FacebookService.saveUpdatePages({
-      auth: auth,
-      me: me,
-      pages: pages,
-    } as FacebookContext)
-  }, [pages])
 
   return (
     <div>
