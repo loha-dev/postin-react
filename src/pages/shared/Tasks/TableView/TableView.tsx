@@ -1,4 +1,4 @@
-function TableView() {
+const TableView = () => {
   return (
     <>
       <div className="overflow-x-auto">
@@ -776,6 +776,6 @@ function TableView() {
       </div>
     </>
   );
-}
+};
 
 export default TableView;

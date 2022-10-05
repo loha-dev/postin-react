@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Modal } from "@mantine/core";
-// import { RichTextEditor } from "@mantine/rte";
+import { Textarea } from "@mantine/core";
 import { DateRangePicker, DateRangePickerValue } from "@mantine/dates";
 import dayjs from "dayjs";
 import { TimeRangeInput } from "@mantine/dates";
@@ -55,16 +55,7 @@ export default function Add({
                   type="text"
                 />
               </div>
-              {/* <RichTextEditor
-                id="rte"
-                controls={[
-                  ["bold", "italic", "underline", "link", "image"],
-                  ["unorderedList", "h1", "h2", "h3"],
-                  ["sup", "sub"],
-                  ["alignLeft", "alignCenter", "alignRight"],
-                ]}
-              /> */}
-
+              <Textarea />
               <div className="flex items-center mt-16 mb-8 gap-3">
                 <DateRangePicker
                   placeholder="Pick dates range"

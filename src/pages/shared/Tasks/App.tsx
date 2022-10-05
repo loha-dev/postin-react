@@ -1,8 +1,8 @@
-import Tasks from "./App";
+import Dnd from "./tache";
 import { Button } from "@mantine/core";
 import { useState } from "react";
 import Add from "./Add";
-function App() {
+const Tasks = () => {
   const [open, setOpened] = useState(false);
   return (
     <>
@@ -14,11 +14,11 @@ function App() {
           </Button>
         </div>
 
-        <Tasks />
+        <Dnd />
       </div>
       <Add opened={open} setOpened={setOpened} />
     </>
   );
-}
+};
 
-export default App;
+export default Tasks;

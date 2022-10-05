@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import {  useState } from "react";
 import { data } from "../assets/todos-list";
 import { DragDropContext } from "@hello-pangea/dnd";
 import type { DropResult, ResponderProvided } from "@hello-pangea/dnd";
