@@ -1,31 +1,63 @@
-import {  useState } from "react";
-import { data } from "../assets/todos-list";
+import { useEffect, useState } from "react";
 import { DragDropContext } from "@hello-pangea/dnd";
 import type { DropResult, ResponderProvided } from "@hello-pangea/dnd";
+import { TasksType } from "../../../../types/short";
 import Colum from "./Droppable";
 const initialData = {
   columns: {
     todo: {
       id: "todo",
-      title: "todo",
-      tasks: data.slice(0, 5),
+      title: "A faire",
+      tasks: [] as TasksType[],
     },
     progress: {
       id: "progress",
-      title: "In progress",
-      tasks: [],
+      title: "En cour",
+      tasks: [] as TasksType[],
     },
     completed: {
       id: "completed",
       title: "Completed",
-      tasks: [],
+      tasks: [] as TasksType[],
+    },
+    archived: {
+      id: "archived",
+      title: "attente de validation",
+      tasks: [] as TasksType[],
     },
   },
-  columnOrder: ["todo", "progress", "completed"] as const,
+  columnOrder: ["todo", "progress", "archived", "completed"] as const,
 };
 
-const Beauty = () => {
+const Beauty = ({ tasks }: { tasks: TasksType[] | null }) => {
   const [data, setData] = useState(initialData);
+  useEffect(() => {
+    if (!tasks) return;
+    setData((previous) => {
+      return {
+        ...previous,
+        columns: {
+          todo: {
+            ...previous.columns.todo,
+            tasks: tasks.filter((task) => task.status === "todo"),
+          },
+          archived: {
+            ...previous.columns.archived,
+            tasks: tasks.filter((task) => task.status === "archived"),
+          },
+          completed: {
+            ...previous.columns.completed,
+            tasks: tasks.filter((task) => task.status === "completed"),
+          },
+          progress: {
+            ...previous.columns.progress,
+            tasks: tasks.filter((task) => task.status === "in_progress"),
+          },
+        },
+      };
+    });
+  }, [tasks]);
+
   const handleDragEnd = (result: DropResult, provided: ResponderProvided) => {
     const { source, destination } = result;
     if (!destination) return;
@@ -88,7 +120,7 @@ const Beauty = () => {
     }
   };
   return (
-    <div className="grid grid-cols-[1fr_1fr_1fr]">
+    <div className="grid grid-cols-[1fr_1fr_1fr_1fr] gap-3">
       <DragDropContext onDragEnd={handleDragEnd}>
         {data.columnOrder.map((order) => {
           const statusCol = data.columns[order];

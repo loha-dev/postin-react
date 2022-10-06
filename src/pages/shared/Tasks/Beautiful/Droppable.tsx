@@ -16,7 +16,7 @@ interface statusCol {
 
 const Column = ({ column }: { column: statusCol }) => {
   return (
-    <div className="border border-slate-500 p-2 ">
+    <div className="p-2 bg-white rounded-lg grid grid-rows-[auto_1fr] ">
       <h2 className="text-lg font-semibold capitalize m-2">{column.title}</h2>
       <div>
         <Droppable droppableId={column.id}>
@@ -26,9 +26,7 @@ const Column = ({ column }: { column: statusCol }) => {
               <div
                 {...provided.droppableProps}
                 ref={provided.innerRef}
-                className={`${
-                  isDraggingOver ? "bg-sky-300" : "bg-white"
-                } transition-colors min-h-[10rem]`}
+                className={`flex flex-col flex-1 gap-5 transition-colors h-full`}
               >
                 {column.tasks.map((task, index) => {
                   return <Task task={task} key={task.id} index={index} />;

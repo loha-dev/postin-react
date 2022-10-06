@@ -9,9 +9,6 @@ import SocialMedia from "./social-media";
 const MainLayout = () => {
   const search = useSearch<accountsUrlSearch>();
   const isSomehowMobile = useMediaQuery("(max-width: 900px)");
-
-  // const isSomehowTablet = useMediaQuery("(max-width: 1100px)");
-
   return (
     <>
       <Top />
