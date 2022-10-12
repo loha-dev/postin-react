@@ -3,6 +3,7 @@ import { DragDropContext } from "@hello-pangea/dnd";
 import type { DropResult, ResponderProvided } from "@hello-pangea/dnd";
 import { TasksType } from "../../../../types/short";
 import Colum from "./Droppable";
+import { updateTask } from "../../../../functions/TasksFunction";
 const initialData = {
   columns: {
     todo: {
@@ -58,10 +59,12 @@ const Beauty = ({ tasks }: { tasks: TasksType[] | null }) => {
     });
   }, [tasks]);
 
-  const handleDragEnd = (result: DropResult, provided: ResponderProvided) => {
+  const handleDragEnd = async (
+    result: DropResult,
+    provided: ResponderProvided
+  ) => {
     const { source, destination } = result;
     if (!destination) return;
-
     if (
       source.droppableId === destination?.droppableId &&
       source.index === destination.index
@@ -87,20 +90,15 @@ const Beauty = ({ tasks }: { tasks: TasksType[] | null }) => {
         };
       });
     } else if (source.droppableId !== destination?.droppableId) {
-      console.log(source.droppableId, destination.droppableId);
-      const destinationId = destination.droppableId as
-        | "todo"
-        | "progress"
-        | "completed";
-      const sourceId = source.droppableId as "todo" | "progress" | "completed";
-
+      type droppableIdType = "todo" | "progress" | "completed" | "archived";
+      const destinationId = destination.droppableId as droppableIdType;
+      const sourceId = source.droppableId as droppableIdType;
       const sourceColumn = data.columns[sourceId];
       const destColumn = data.columns[destinationId];
       const sourceItems = Array.from(sourceColumn.tasks);
       const destItems = Array.from(destColumn.tasks);
       const [removed] = sourceItems.splice(source.index, 1);
       destItems.splice(destination.index, 0, removed);
-
       setData((previous) => {
         return {
           ...previous,
@@ -117,6 +115,11 @@ const Beauty = ({ tasks }: { tasks: TasksType[] | null }) => {
           },
         };
       });
+      const { data: resUp, error } = await updateTask(
+        removed.id,
+        destinationId
+      );
+      console.log(resUp);
     }
   };
   return (
