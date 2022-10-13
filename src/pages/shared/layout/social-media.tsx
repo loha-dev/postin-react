@@ -111,7 +111,7 @@ const SocialMedia = () => {
               <span>
                 <img src={social.img} alt="" className="w-7 h-7" />
               </span>
-              <span>{social.title}</span>
+              {/* <span>{social.title}</span> */}
               <button
                 className={`absolute top-0 right-0 rounded-xl p-1 ${
                   social.isOut ? "bg-red-200" : "bg-green-500"
