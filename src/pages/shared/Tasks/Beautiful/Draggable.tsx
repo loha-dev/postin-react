@@ -1,23 +1,29 @@
-import { Draggable } from "@hello-pangea/dnd";
-import { Avatar, Tooltip } from "@mantine/core";
+import { Draggable } from "@hello-pangea/dnd"
+import { Avatar, Tooltip } from "@mantine/core"
+import { useState } from "react"
+import { AiFillStar, AiOutlineStar, AiFillEdit } from "react-icons/ai"
+import { IoWarning, IoWarningOutline } from "react-icons/io5"
+import { MdDelete } from "react-icons/md"
 interface TaskInterface {
-  id: number;
-  title: string;
-  content: string;
-  page: number;
-  status: string;
-  date: string;
-  time: string;
+  id: number
+  title: string
+  content: string
+  page: number
+  status: string
+  date: string
+  time: string
 }
-import { gradients, socialUrls } from "../../../../types/short";
+import { gradients, socialUrls } from "../../../../types/short"
 
 const Task = ({ task, index }: { task: TaskInterface; index: number }) => {
-  const gradient = gradients[Math.floor(Math.random() * 10)];
-  const randomSocials = Math.floor(Math.random() * 4);
+  const [isUrgent, setUrgent] = useState(false)
+  const [isImportant, setImportant] = useState(false)
+  const gradient = gradients[Math.floor(Math.random() * 10)]
+  const randomSocials = Math.floor(Math.random() * 4)
   return (
     <Draggable draggableId={task.id.toString()} index={index}>
       {(provided, snapshot) => {
-        const { isDragging } = snapshot;
+        const { isDragging } = snapshot
         return (
           <div
             key={task.id}
@@ -71,7 +77,7 @@ const Task = ({ task, index }: { task: TaskInterface; index: number }) => {
                       key={socialUrls[index]}
                       className="h-7 w-7"
                     />
-                  );
+                  )
                 })}
               </Avatar.Group>
             </div>
@@ -81,9 +87,9 @@ const Task = ({ task, index }: { task: TaskInterface; index: number }) => {
                   {task.title}
                 </h5>
 
-                <p className="mt-1 text-xs font-medium text-gray-600">
+                {/* <p className="mt-1 text-xs font-medium text-gray-600">
                   By John Doe
-                </p>
+                </p> */}
               </div>
             </div>
 
@@ -92,10 +98,37 @@ const Task = ({ task, index }: { task: TaskInterface; index: number }) => {
                 {task.content.slice(0, 40)}
               </p>
             </div>
+            {/* task date and time */}
+            <div className="flex items-center justify-between mt-4 hover:cursor-pointer">
+              <p className="rounded-full bg-gray-300 px-2 py-1 text-xs">{`${task.date} - ${task.time}`}</p>
+              <div className="inline-flex">
+                {
+                  !isUrgent ? <IoWarning className="text-red-600" onClick={() => {
+                    setUrgent(!isUrgent)
+                    console.log(`${task.id} Urgent: ${isUrgent}`)
+                  }} /> : <IoWarningOutline className="text-red-600" onClick={() => {
+                    setUrgent(!isUrgent)
+                    console.log(`${task.id} Urgent: ${isUrgent}`)
+                  }} />
+                }
+                {
+                  !isImportant ? <AiFillStar className="text-yellow-500" onClick={() => {
+                    setImportant(!isImportant)
+                    console.log(` ${task.id} Important: ${isImportant}`)
+                  }} /> : <AiOutlineStar className="text-yellow-500" onClick={() => {
+                    setImportant(!isImportant)
+                    console.log(` ${task.id} Important: ${isImportant}`)
+                  }} />
+                }
+
+                <MdDelete className="text-red-600" onClick={() => { console.log(`${task.id} Delete button`) }} />
+                <AiFillEdit className="text-green-600" onClick={() => { console.log(`${task.id} Edit button`) }} />
+              </div>
+            </div>
           </div>
-        );
+        )
       }}
     </Draggable>
-  );
-};
-export default Task;
+  )
+}
+export default Task

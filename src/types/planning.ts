@@ -3,13 +3,13 @@ type PlanningType = {
     id: string
     title: string
     keywords: string[]
-    date: Date
+    body: string
+    date: Date //from - to
     status: string
     validation: string
-    badge: string
-    boost: number
-    responsible: string
-    body: string
+    badge: string //etiquette
+    boost?: number
+    responsible?: string
 }
 type LocationGenerics = MakeGenerics<{
     LoaderData: {
