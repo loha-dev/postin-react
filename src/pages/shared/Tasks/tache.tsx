@@ -14,28 +14,21 @@ const Tasks = () => {
   return (
     <div>
       <TaskMenu />
-      <Tabs defaultValue="gallery" color="dark" variant="pills">
+      <Tabs defaultValue="table" color="dark">
         <Tabs.List>
-          {/* <Tabs.Tab value="gallery" icon={<IconPhoto size={14} />}>
-          Vue Table
-        </Tabs.Tab> */}
-          {/* <Tabs.Tab value="messages" icon={<IconMessageCircle size={14} />}>
-          Vue Card
-        </Tabs.Tab> */}
-          {/* <Tabs.Tab value="settings" icon={<IconSettings size={14} />}>
-          Vue kanban
-        </Tabs.Tab> */}
+          <Tabs.Tab value="table">Table</Tabs.Tab>
+          <Tabs.Tab value="kanban">kanban</Tabs.Tab>
         </Tabs.List>
         <ScrollArea
           style={{
             height: "78vh",
           }}
         >
-          <Tabs.Panel value="gallery" pt="xs">
+          <Tabs.Panel value="table" pt="xs">
             <TableView />
           </Tabs.Panel>
 
-          <Tabs.Panel value="settings" pt="xs">
+          <Tabs.Panel value="kanban" pt="xs">
             <Beauty tasks={data ? data : null} />
           </Tabs.Panel>
         </ScrollArea>
