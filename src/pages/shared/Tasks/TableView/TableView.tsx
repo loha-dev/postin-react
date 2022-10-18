@@ -8,7 +8,7 @@ import { socialMediaDataTypes } from "../../../../types/social-type";
 import { ScrollArea } from "@mantine/core";
 const TableView = () => {
   const { data: tasks } = useQuery(["table"], async () => {
-    const { data, error } = await supabase.from("tasks-table");
+    const { data, error } = await supabase.from("tasks");
     return data as Array<TableResponse>;
   });
   const { data: social } = useQuery(["social-media"], async () => {

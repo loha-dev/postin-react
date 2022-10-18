@@ -55,7 +55,10 @@ const TaskMenu = () => {
           {socialMediaList !== undefined ? (
             socialMediaList.map((socialMedia) => {
               return (
-                <div className="p-0.5 rounded-full bg-gradient-to-r from-blue-500 via-red-500 to-green-500 ">
+                <div
+                  className="p-0.5 rounded-full bg-gradient-to-r from-blue-500 via-red-500 to-green-500 "
+                  key={socialMedia.id}
+                >
                   <div className="bg-fotsy rounded-full p-0.5">
                     <Avatar
                       component="a"
