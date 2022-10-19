@@ -23,7 +23,7 @@ export const Head = ({
             transitionDuration={0}
           />
         </th>
-        <th className="font-normal text-left ">Title</th>
+        <th className="font-normal text-left">Title</th>
         <th className="font-normal text-left">Mots Cles</th>
         <th className="font-normal text-left">Date Prevue</th>
         <th className="font-normal text-left">Heure</th>

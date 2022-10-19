@@ -25,6 +25,11 @@ export interface TasksType {
   status: string;
   date: string;
   time: string;
+  validation: string;
+  keywords: string[];
+  boost: number;
+  social: number;
+  labels: string[];
 }
 
 export const gradients = [

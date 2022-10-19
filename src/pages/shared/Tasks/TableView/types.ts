@@ -8,4 +8,5 @@ export interface TableResponse {
   boost: number;
   social: number;
   labels: string[];
+  status: string;
 }

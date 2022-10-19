@@ -11,6 +11,7 @@ interface statusCol {
     status: string;
     date: string;
     time: string;
+    social: number;
   }>;
 }
 

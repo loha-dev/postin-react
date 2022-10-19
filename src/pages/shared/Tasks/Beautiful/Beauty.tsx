@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { DragDropContext } from "@hello-pangea/dnd";
 import type { DropResult, ResponderProvided } from "@hello-pangea/dnd";
 import { TasksType } from "../../../../types/short";
@@ -31,10 +31,10 @@ const initialData = {
 };
 
 const Beauty = ({ tasks }: { tasks: TasksType[] | null }) => {
-  const [data, setData] = useState(initialData);
+  const [data, setBeauty] = useState(initialData);
   useEffect(() => {
     if (!tasks) return;
-    setData((previous) => {
+    setBeauty((previous) => {
       return {
         ...previous,
         columns: {
@@ -77,7 +77,7 @@ const Beauty = ({ tasks }: { tasks: TasksType[] | null }) => {
       const tasks = Array.from(column.tasks);
       const [removed] = tasks.splice(source.index, 1);
       tasks.splice(destination.index, 0, removed);
-      setData((previous) => {
+      setBeauty((previous) => {
         return {
           ...previous,
           columns: {
@@ -99,7 +99,7 @@ const Beauty = ({ tasks }: { tasks: TasksType[] | null }) => {
       const destItems = Array.from(destColumn.tasks);
       const [removed] = sourceItems.splice(source.index, 1);
       destItems.splice(destination.index, 0, removed);
-      setData((previous) => {
+      setBeauty((previous) => {
         return {
           ...previous,
           columns: {
@@ -119,7 +119,6 @@ const Beauty = ({ tasks }: { tasks: TasksType[] | null }) => {
         removed.id,
         destinationId
       );
-      console.log(resUp);
     }
   };
   return (

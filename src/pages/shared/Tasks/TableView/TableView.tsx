@@ -1,20 +1,11 @@
 import { Head } from "./Head";
 import { useState } from "react";
 import Row from "./Row";
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "../../../../utils/supabase";
-import { TableResponse } from "./types";
-import { socialMediaDataTypes } from "../../../../types/social-type";
+import { TasksType } from "../../../../types/short";
 import { ScrollArea } from "@mantine/core";
-const TableView = () => {
-  const { data: tasks } = useQuery(["table"], async () => {
-    const { data, error } = await supabase.from("tasks");
-    return data as Array<TableResponse>;
-  });
-  const { data: social } = useQuery(["social-media"], async () => {
-    const { data } = await supabase.from("social-media");
-    return data as socialMediaDataTypes[];
-  });
+import { useSocialMedialList } from "../../../../hooks/frequentQuery";
+const TableView = ({ tasks }: { tasks: TasksType[] }) => {
+  const { data: social } = useSocialMedialList();
   const [selection, setSelection] = useState<number[]>([]);
   const toggleRow = (id: number) =>
     setSelection((current) =>
@@ -35,7 +26,7 @@ const TableView = () => {
   return (
     <div className="w-full">
       <div className="bg-white shadow p-4">
-        <ScrollArea sx={{ minWidth: "50vw" }}>
+        <ScrollArea sx={{ minWidth: "50vw", height: "67vh" }}>
           <table className="w-full whitespace-nowrap overflow-x-auto overflow-y-auto ">
             <Head toggleAll={toggleAll} selection={selection} data={tasks} />
             <tbody className="w-full">
