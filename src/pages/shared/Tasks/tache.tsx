@@ -6,9 +6,8 @@ import { supabase } from "../../../utils/supabase";
 import { TasksType } from "../../../types/short";
 import TaskMenu from "./TaskMenu";
 import { useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
+import { Skeleton } from "@mantine/core";
 const Tasks = () => {
-  const queryClient = useQueryClient();
   const [data, setData] = useState<TasksType[] | null>(null);
   const { refetch } = useQuery(
     ["tasks"],
@@ -23,7 +22,6 @@ const Tasks = () => {
     }
   );
   const revalidateTasksQuery = () => {
-    console.log("Refetching");
     refetch();
   };
   return (
@@ -44,11 +42,26 @@ const Tasks = () => {
           }}
         >
           <Tabs.Panel value="table" pt="xs">
-            {data ? <TableView tasks={data} /> : <></>}
+            {data ? (
+              <TableView tasks={data} />
+            ) : (
+              <div className="my-5">
+                <Skeleton width={"100%"} height={70} />
+                <div className="flex flex-col gap-4 my-5">
+                  <Skeleton height={100} />
+                  <Skeleton height={100} />
+                  <Skeleton height={100} />
+                </div>
+              </div>
+            )}
           </Tabs.Panel>
 
           <Tabs.Panel value="kanban" pt="xs">
-            {data ? <Beauty tasks={data} /> : <></>}
+            {data ? (
+              <Beauty tasks={data} />
+            ) : (
+              <div className="grid grid-cols-4"></div>
+            )}
           </Tabs.Panel>
         </ScrollArea>
       </Tabs>

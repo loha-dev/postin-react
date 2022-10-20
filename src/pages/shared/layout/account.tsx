@@ -1,7 +1,7 @@
 import { accountAtom } from "../../../atomic/accounts-atom";
 import { useAtom } from "jotai";
 import { useNavigate, useSearch } from "@tanstack/react-location";
-import { Tabs } from "@mantine/core";
+import { Skeleton, Tabs } from "@mantine/core";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { MdOutlineAirplanemodeActive } from "react-icons/md";
 import { Transition } from "@mantine/core";
@@ -146,35 +146,46 @@ const Account = () => {
                     height: "75vh",
                   }}
                 >
-                  <div className="flex flex-col gap-2">
-                    {filtered === undefined
-                      ? clients?.map((client: clientsType) => {
-                          const { id, name, phone, avatar } = client;
-                          return (
-                            <ShortProfile
-                              key={id}
-                              id={id}
-                              name={name}
-                              phone={phone}
-                              avatar={avatar}
-                              makeActive={makeActive}
-                            />
-                          );
-                        })
-                      : filtered?.map((client: clientsType) => {
-                          const { id, name, phone, avatar } = client;
-                          return (
-                            <ShortProfile
-                              id={id}
-                              key={id}
-                              name={name}
-                              phone={phone}
-                              avatar={avatar}
-                              makeActive={makeActive}
-                            />
-                          );
-                        })}
-                  </div>
+                  {clients ? (
+                    <div className="flex flex-col gap-2">
+                      {filtered === undefined
+                        ? clients?.map((client: clientsType) => {
+                            const { id, name, phone, avatar } = client;
+                            return (
+                              <ShortProfile
+                                key={id}
+                                id={id}
+                                name={name}
+                                phone={phone}
+                                avatar={avatar}
+                                makeActive={makeActive}
+                              />
+                            );
+                          })
+                        : filtered?.map((client: clientsType) => {
+                            const { id, name, phone, avatar } = client;
+                            return (
+                              <ShortProfile
+                                id={id}
+                                key={id}
+                                name={name}
+                                phone={phone}
+                                avatar={avatar}
+                                makeActive={makeActive}
+                              />
+                            );
+                          })}
+                    </div>
+                  ) : (
+                    <div className="mx-1 flex flex-col gap-5">
+                      <Skeleton height={60} />
+                      <Skeleton height={60} />
+                      <Skeleton height={60} />
+                      <Skeleton height={60} />
+                      <Skeleton height={60} />
+                      <Skeleton height={60} />
+                    </div>
+                  )}
                 </ScrollArea>
               </div>
             )}

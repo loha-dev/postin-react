@@ -52,7 +52,7 @@ const TaskMenu = () => {
           <ActionIcon>
             <AiOutlineLeft size="24" />
           </ActionIcon>
-          {socialMediaList !== undefined ? (
+          {socialMediaList ? (
             socialMediaList.map((socialMedia) => {
               return (
                 <div

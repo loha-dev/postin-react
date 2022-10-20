@@ -5,18 +5,9 @@ import { AiFillStar, AiOutlineStar, AiFillEdit } from "react-icons/ai";
 import { IoWarning, IoWarningOutline } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import { useSocialMedialList } from "../../../../hooks/frequentQuery";
-interface TaskInterface {
-  id: number;
-  title: string;
-  content: string;
-  page: number;
-  status: string;
-  date: string;
-  time: string;
-  social: number;
-}
-import { gradients, socialUrls } from "../../../../types/short";
-
+import { gradients } from "../../../../types/short";
+import { Menu } from "@mantine/core";
+import HoverView from "./HoverView";
 const Task = ({ task, index }: { task: TaskInterface; index: number }) => {
   const [isUrgent, setUrgent] = useState(false);
   const [isImportant, setImportant] = useState(false);
@@ -80,9 +71,16 @@ const Task = ({ task, index }: { task: TaskInterface; index: number }) => {
             </div>
             <div className="justify-between sm:flex">
               <div>
-                <h5 className="text-xl font-bold text-gray-900">
-                  {task.title}
-                </h5>
+                <Menu shadow="md" width={400} trigger="hover">
+                  <Menu.Target>
+                    <h5 className="text-xl font-bold text-gray-900">
+                      {task.title}
+                    </h5>
+                  </Menu.Target>
+                  <Menu.Dropdown sx={{ padding: "1rem" }}>
+                    <HoverView taskId={task.id} />
+                  </Menu.Dropdown>
+                </Menu>
               </div>
             </div>
 
@@ -137,3 +135,13 @@ const Task = ({ task, index }: { task: TaskInterface; index: number }) => {
   );
 };
 export default Task;
+interface TaskInterface {
+  id: number;
+  title: string;
+  content: string;
+  page: number;
+  status: string;
+  date: string;
+  time: string;
+  social: number;
+}

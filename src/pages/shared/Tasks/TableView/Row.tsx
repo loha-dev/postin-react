@@ -3,15 +3,24 @@ import { TableResponse } from "./types";
 import { Checkbox } from "@mantine/core";
 import { Chip } from "@mantine/core";
 import { supabase } from "../../../../utils/supabase";
-
+import SocialMenu from "../components/SocialMenu";
+import { useListState } from "@mantine/hooks";
+import AddKeywords from "../components/AddKeywords";
+import { DatePicker } from "@mantine/dates";
+import { TimeInput } from "@mantine/dates";
+import { useState } from "react";
 const Row = ({ task, social: socials, selection, toggleRow }: RowPorpsType) => {
   const handleTitleBlur = async (value: any) => {
     const text = value.target?.innerText;
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("tasks")
       .update({ title: text })
       .eq("id", task.id);
+    console.log("ROW NAME CHANGE", error);
   };
+  const [keywords, handleKeyword] = useListState(task.keywords);
+  const [date, handleDate] = useState<any>(new Date(task.date));
+  const [time, handleTime] = useState<any>(new Date(task.date));
   return (
     <tr className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
       <td>
@@ -24,11 +33,12 @@ const Row = ({ task, social: socials, selection, toggleRow }: RowPorpsType) => {
       <td className="pl-4 cursor-pointer">
         <div className="flex items-center">
           <div className="w-10 h-10">
-            <img
-              className="w-full h-full"
+            <SocialMenu
               src={
                 socials ? socials.find((sc) => sc.id === task.social)?.img : ""
               }
+              socials={socials}
+              id={task.id}
             />
           </div>
           <div className="pl-4">
@@ -49,19 +59,26 @@ const Row = ({ task, social: socials, selection, toggleRow }: RowPorpsType) => {
         </div>
       </td>
       <td>
-        <div className="text-sm font-medium leading-none text-gray-800 flex flex-wrap">
-          {task.keywords.map((keyword) => (
-            <Chip size={"xs"} key={keyword} checked={false}>
+        <div className="text-sm font-medium leading-none text-gray-800 flex flex-wrap justify-evenly">
+          {keywords.map((keyword, index) => (
+            <Chip
+              size={"xs"}
+              key={keyword}
+              checked={false}
+              variant="filled"
+              onDoubleClick={() => handleKeyword.remove(index)}
+            >
               {keyword}
             </Chip>
           ))}
+          <AddKeywords id={task.id} handleAdd={handleKeyword.append} />
         </div>
       </td>
       <td>
-        <p className="font-medium">{task.date}</p>
+        <DatePicker value={date} onChange={handleDate} />
       </td>
       <td>
-        <p className="font-medium mr-5">{task.time}</p>
+        <TimeInput value={time} onChange={handleTime} />
       </td>
       <td>
         <p className="font-medium mr-5">{task.status}</p>
