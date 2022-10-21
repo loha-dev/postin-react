@@ -1,10 +1,11 @@
 import { accountAtom } from "../../../atomic/accounts-atom";
 import { useAtom } from "jotai";
-import { useNavigate, useSearch } from "@tanstack/react-location";
-import { Skeleton, Tabs } from "@mantine/core";
+import { Link, Router, useNavigate, useSearch } from "@tanstack/react-location";
+import { Button, Skeleton, Tabs } from "@mantine/core";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { MdOutlineAirplanemodeActive } from "react-icons/md";
 import { Transition } from "@mantine/core";
+import { Alert } from "@mantine/core";
 import type {
   accountsGenericsSearch,
   clientsType,
@@ -17,7 +18,7 @@ import ShortProfile from "./components/short-profile";
 import { ScrollArea } from "@mantine/core";
 import { useEffect, useState } from "react";
 import ActiveTab from "./components/active-tab";
-
+import { BiRightArrow } from "react-icons/bi";
 // react export default components
 
 const Account = () => {
@@ -29,10 +30,12 @@ const Account = () => {
   const [filtered, setFiltered] = useState<clientsType[] | undefined>(
     undefined
   );
+
   const { data: clients } = useQuery(["clients"], async () => {
     const { data } = await supabase.from("clients");
     return data as clientsType[];
   });
+
   const inputSearchHandler = (query: string) => {
     setFiltered(
       clients?.filter((handler) =>
@@ -40,6 +43,15 @@ const Account = () => {
       )
     );
   };
+  const [conn, setConn] = useState<null | any>(null);
+  useEffect(() => {
+    const state = supabase.auth.user();
+    setConn(state);
+    // if (!state) {
+    //   navigate({ to: "/auth/signin", replace: true });
+    // }
+    // console.table(state);
+  }, []);
 
   useEffect(() => {
     if (search.name !== undefined) {
@@ -141,52 +153,70 @@ const Account = () => {
                     <IoMdSearch className="w-5 h-5" />
                   </button>
                 </div>
-                <ScrollArea
-                  style={{
-                    height: "75vh",
-                  }}
-                >
-                  {clients ? (
-                    <div className="flex flex-col gap-2">
-                      {filtered === undefined
-                        ? clients?.map((client: clientsType) => {
-                            const { id, name, phone, avatar } = client;
-                            return (
-                              <ShortProfile
-                                key={id}
-                                id={id}
-                                name={name}
-                                phone={phone}
-                                avatar={avatar}
-                                makeActive={makeActive}
-                              />
-                            );
-                          })
-                        : filtered?.map((client: clientsType) => {
-                            const { id, name, phone, avatar } = client;
-                            return (
-                              <ShortProfile
-                                id={id}
-                                key={id}
-                                name={name}
-                                phone={phone}
-                                avatar={avatar}
-                                makeActive={makeActive}
-                              />
-                            );
-                          })}
-                    </div>
-                  ) : (
-                    <div className="mx-1 flex flex-col gap-5">
-                      <Skeleton height={60} />
-                      <Skeleton height={60} />
-                      <Skeleton height={60} />
-                      <Skeleton height={60} />
-                      <Skeleton height={60} />
-                      <Skeleton height={60} />
-                    </div>
-                  )}
-                </ScrollArea>
+                {true ? (
+                  <ScrollArea
+                    style={{
+                      height: "75vh",
+                    }}
+                  >
+                    {clients ? (
+                      <div className="flex flex-col gap-2">
+                        {filtered === undefined
+                          ? clients?.map((client: clientsType) => {
+                              const { id, name, phone, avatar } = client;
+                              return (
+                                <ShortProfile
+                                  key={id}
+                                  id={id}
+                                  name={name}
+                                  phone={phone}
+                                  avatar={avatar}
+                                  makeActive={makeActive}
+                                />
+                              );
+                            })
+                          : filtered?.map((client: clientsType) => {
+                              const { id, name, phone, avatar } = client;
+                              return (
+                                <ShortProfile
+                                  id={id}
+                                  key={id}
+                                  name={name}
+                                  phone={phone}
+                                  avatar={avatar}
+                                  makeActive={makeActive}
+                                />
+                              );
+                            })}
+                      </div>
+                    ) : (
+                      <div className="mx-1 flex flex-col gap-5">
+                        <Skeleton height={60} />
+                        <Skeleton height={60} />
+                        <Skeleton height={60} />
+                        <Skeleton height={60} />
+                        <Skeleton height={60} />
+                        <Skeleton height={60} />
+                      </div>
+                    )}
+                  </ScrollArea>
+                ) : (
+                  <>
+                    <Alert title="Pas connecter!" color="red">
+                      Something terrible happened! You made a mistake and there
+                      is no going back, your data was lost forever!
+                    </Alert>
+                    <Link to="/auth/signin">
+                      <Button
+                        variant="default"
+                        color={"red"}
+                        rightIcon={<BiRightArrow size={12} />}
+                      >
+                        Go to login
+                      </Button>
+                    </Link>
+                  </>
+                )}
               </div>
             )}
           </Transition>

@@ -36,12 +36,14 @@ const SignUp = () => {
       hideNotification("signup");
       showNotification({
         title: `Inscription succes`,
-        message: "Aller au page de connexion",
+        message: "Clicker Voir Mail",
         color: "green",
         icon: <CheckIcon className="w-5 h-5" />,
-      });
-      navigate({
-        to: "/auth/signin",
+        onClick: () => {
+          navigate({
+            to: "https://mail.google.com/mail/u/0/",
+          });
+        },
       });
     }
   };
@@ -96,12 +98,12 @@ const SignUp = () => {
                 />
                 {isShown ? (
                   <HiEyeOff
-                    className="absolute text-gray-400 right-2 bottom-2 w-6"
+                    className="absolute text-gray-400 right-2 bottom-3 w-6"
                     onClick={() => setIsShown((prev) => !prev)}
                   />
                 ) : (
                   <HiEye
-                    className="absolute text-gray-400 right-2 bottom-2 w-6"
+                    className="absolute text-gray-400 right-2 bottom-3 w-6"
                     onClick={() => setIsShown((prev) => !prev)}
                   />
                 )}
@@ -115,7 +117,7 @@ const SignUp = () => {
             </div>
             <button
               type="submit"
-              className="text-white w-full px-4 py-3 text-xl font-semibold text-center bg-gradient-to-r from-orange-600 to-green-400 hover:from-pink-500 hover:to-yellow-500 rounded"
+              className="text-white w-full px-4 py-3 text-xl font-semibold text-center bg-gradient-to-r from-orange-600 to-green-400 hover:from-pink-500 hover:to-yellow-500 rounded transition-colors"
             >
               <span className="w-full">Se connecter</span>
             </button>

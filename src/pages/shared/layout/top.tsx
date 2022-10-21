@@ -1,19 +1,26 @@
-import { Link } from "@tanstack/react-location"
-import { IoMdNotifications, IoMdSearch } from "react-icons/io"
+import { Link } from "@tanstack/react-location";
+import { IoMdNotifications, IoMdSearch } from "react-icons/io";
 import {
   IoSettingsOutline,
   IoPersonOutline,
   IoLogOutOutline,
-} from "react-icons/io5"
-import { AiFillDownCircle } from "react-icons/ai"
-import { useRef } from "react"
-import { Indicator, Menu, Avatar } from "@mantine/core"
-import LinePoints from "./components/line-points"
+} from "react-icons/io5";
+import { AiFillDownCircle } from "react-icons/ai";
+import { useEffect, useRef, useState } from "react";
+import { Indicator, Menu, Avatar } from "@mantine/core";
+import LinePoints from "./components/line-points";
+import { supabase } from "../../../utils/supabase";
 const Top = () => {
-  const searchRef = useRef<HTMLInputElement>(null)
+  const searchRef = useRef<HTMLInputElement>(null);
   const focus = () => {
-    searchRef.current?.focus()
-  }
+    searchRef.current?.focus();
+  };
+  const [conn, setConn] = useState<null | any>(null);
+  useEffect(() => {
+    const state = supabase.auth.user();
+    setConn(state);
+    console.table(state);
+  }, []);
 
   return (
     <div className="bg-white flex text-gray-800  hover:text-black focus:outline-none focus:text-black justify-between w-full py-1 px-4 items-center ">
@@ -21,6 +28,7 @@ const Top = () => {
         <>
           <img src="/images/light-logo.png" alt="logo" className="w-12 h-12" />
           <p className="text-4xl leading-6 font-bold">Post-In</p>
+          {conn ? <></> : <></>}
         </>
       </Link>
       <div className="flex-grow"></div>
@@ -251,14 +259,19 @@ const Top = () => {
                 Facebook
               </span>
             </Link>
-            <a className="relative cursor-pointer flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+            <button
+              className="relative cursor-pointer flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+              onClick={() => {
+                supabase.auth.signOut();
+              }}
+            >
               <span className="inline-flex justify-center items-center ml-4">
                 <IoLogOutOutline className="w-5 h-5" />
               </span>
               <span className="ml-2 text-sm tracking-wide truncate">
                 Deconexion
               </span>
-            </a>
+            </button>
           </Menu.Dropdown>
         </Menu>
         <Menu shadow="md" transition="rotate-right">
@@ -303,6 +316,6 @@ const Top = () => {
         </Menu>
       </div>
     </div>
-  )
-}
-export default Top
+  );
+};
+export default Top;
